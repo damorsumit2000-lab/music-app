@@ -13,14 +13,56 @@ const FEATURED = [
 ];
 
 const TRENDING_VIDEOS = [
+  // Pop / International
   { id: 'JGwWNGJdvx8', title: 'Shape of You', artist: 'Ed Sheeran', thumb: 'https://img.youtube.com/vi/JGwWNGJdvx8/mqdefault.jpg' },
   { id: 'kTJczUoc26U', title: 'Senorita', artist: 'Shawn Mendes & Camila', thumb: 'https://img.youtube.com/vi/kTJczUoc26U/mqdefault.jpg' },
   { id: 'RgKAFK5djSk', title: 'See You Again', artist: 'Wiz Khalifa', thumb: 'https://img.youtube.com/vi/RgKAFK5djSk/mqdefault.jpg' },
-  { id: 'OPf0YbXqDm0', title: 'Mark Ronson - Uptown Funk', artist: 'ft. Bruno Mars', thumb: 'https://img.youtube.com/vi/OPf0YbXqDm0/mqdefault.jpg' },
+  { id: 'OPf0YbXqDm0', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', thumb: 'https://img.youtube.com/vi/OPf0YbXqDm0/mqdefault.jpg' },
   { id: 'hT_nvWreIhg', title: 'Counting Stars', artist: 'OneRepublic', thumb: 'https://img.youtube.com/vi/hT_nvWreIhg/mqdefault.jpg' },
   { id: 'YqeW9_5kURI', title: 'Perfect', artist: 'Ed Sheeran', thumb: 'https://img.youtube.com/vi/YqeW9_5kURI/mqdefault.jpg' },
   { id: 'CevxZvSJLk8', title: 'Roar', artist: 'Katy Perry', thumb: 'https://img.youtube.com/vi/CevxZvSJLk8/mqdefault.jpg' },
   { id: 'nfWlot6h_JM', title: 'Shake It Off', artist: 'Taylor Swift', thumb: 'https://img.youtube.com/vi/nfWlot6h_JM/mqdefault.jpg' },
+  { id: 'PT2_F-1esPk', title: 'Unstoppable', artist: 'Sia', thumb: 'https://img.youtube.com/vi/PT2_F-1esPk/mqdefault.jpg' },
+  { id: 'bo_efYSyea0', title: 'Sorry', artist: 'Justin Bieber', thumb: 'https://img.youtube.com/vi/bo_efYSyea0/mqdefault.jpg' },
+  { id: '09R8_2nJtjg', title: 'Sugar', artist: 'Maroon 5', thumb: 'https://img.youtube.com/vi/09R8_2nJtjg/mqdefault.jpg' },
+  { id: 'SlPhMPnQ58k', title: 'Levitating', artist: 'Dua Lipa', thumb: 'https://img.youtube.com/vi/SlPhMPnQ58k/mqdefault.jpg' },
+  { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello & Bastille', thumb: 'https://img.youtube.com/vi/pRpeEdMmmQ0/mqdefault.jpg' },
+  { id: 'ZbZSe6N_BXs', title: 'Happy', artist: 'Pharrell Williams', thumb: 'https://img.youtube.com/vi/ZbZSe6N_BXs/mqdefault.jpg' },
+  { id: 'fHI8X4OXluQ', title: 'Astronaut In The Ocean', artist: 'Masked Wolf', thumb: 'https://img.youtube.com/vi/fHI8X4OXluQ/mqdefault.jpg' },
+
+  // Bollywood
+  { id: 'reIOoKhTHU8', title: 'Kesariya', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/reIOoKhTHU8/mqdefault.jpg' },
+  { id: 'BddP6PYo2gs', title: 'Tum Hi Ho', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/BddP6PYo2gs/mqdefault.jpg' },
+  { id: 'pMsDDJqCGSY', title: 'Raataan Lambiyan', artist: 'Jubin Nautiyal', thumb: 'https://img.youtube.com/vi/pMsDDJqCGSY/mqdefault.jpg' },
+  { id: 'YVNKFaZBArM', title: 'Chaleya', artist: 'Arijit Singh & Shilpa Rao', thumb: 'https://img.youtube.com/vi/YVNKFaZBArM/mqdefault.jpg' },
+  { id: '1wJP4m3rOJI', title: 'Apna Bana Le', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/1wJP4m3rOJI/mqdefault.jpg' },
+  { id: 'AHJOKyDFDHM', title: 'Bekhayali', artist: 'Sachet Tandon', thumb: 'https://img.youtube.com/vi/AHJOKyDFDHM/mqdefault.jpg' },
+  { id: 'JVxkr7QPYHY', title: 'Ik Vaari Aa', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/JVxkr7QPYHY/mqdefault.jpg' },
+  { id: 'lSUCqkWH_Q0', title: 'Dil Diyan Gallan', artist: 'Atif Aslam', thumb: 'https://img.youtube.com/vi/lSUCqkWH_Q0/mqdefault.jpg' },
+
+  // Tamil / Kollywood
+  { id: 'P8RgTFOhMpw', title: 'Kannaana Kanney', artist: 'D. Imman', thumb: 'https://img.youtube.com/vi/P8RgTFOhMpw/mqdefault.jpg' },
+  { id: 'tgbNymZ7vqY', title: 'Arabic Kuthu', artist: 'Anirudh Ravichander', thumb: 'https://img.youtube.com/vi/tgbNymZ7vqY/mqdefault.jpg' },
+  { id: 'vo6JBJ7QFBQ', title: 'Rowdy Baby', artist: 'Dhanush & Dhee', thumb: 'https://img.youtube.com/vi/vo6JBJ7QFBQ/mqdefault.jpg' },
+  { id: 'hIPBaB3UPRA', title: 'Kaavaalaa', artist: 'Anirudh Ravichander', thumb: 'https://img.youtube.com/vi/hIPBaB3UPRA/mqdefault.jpg' },
+  { id: 'ZS7BSzK7HLs', title: 'Naatu Naatu', artist: 'Rahul Sipligunj', thumb: 'https://img.youtube.com/vi/ZS7BSzK7HLs/mqdefault.jpg' },
+
+  // Hip-Hop
+  { id: 'YVkUvmDQ3HY', title: 'HUMBLE.', artist: 'Kendrick Lamar', thumb: 'https://img.youtube.com/vi/YVkUvmDQ3HY/mqdefault.jpg' },
+  { id: 'IHNzOHi8sJs', title: 'God's Plan', artist: 'Drake', thumb: 'https://img.youtube.com/vi/IHNzOHi8sJs/mqdefault.jpg' },
+  { id: 'QjvzCTqkBDQ', title: 'Rockstar', artist: 'Post Malone', thumb: 'https://img.youtube.com/vi/QjvzCTqkBDQ/mqdefault.jpg' },
+  { id: '6ONRf7h3Mdk', title: 'SICKO MODE', artist: 'Travis Scott', thumb: 'https://img.youtube.com/vi/6ONRf7h3Mdk/mqdefault.jpg' },
+  { id: 'nS2oNq02E48', title: 'Blinding Lights', artist: 'The Weeknd', thumb: 'https://img.youtube.com/vi/nS2oNq02E48/mqdefault.jpg' },
+
+  // K-Pop
+  { id: 'gdZLi9oWNZg', title: 'Dynamite', artist: 'BTS', thumb: 'https://img.youtube.com/vi/gdZLi9oWNZg/mqdefault.jpg' },
+  { id: 'MBdVXkSdhwU', title: 'Psycho', artist: 'Red Velvet', thumb: 'https://img.youtube.com/vi/MBdVXkSdhwU/mqdefault.jpg' },
+  { id: '9bZkp7q19f0', title: 'GANGNAM STYLE', artist: 'PSY', thumb: 'https://img.youtube.com/vi/9bZkp7q19f0/mqdefault.jpg' },
+  { id: 'XsX3ATc3FbA', title: 'Boy With Luv', artist: 'BTS ft. Halsey', thumb: 'https://img.youtube.com/vi/XsX3ATc3FbA/mqdefault.jpg' },
+
+  // Lofi / Chill
+  { id: '5qap5aO4i9A', title: 'Lofi Hip Hop Radio', artist: 'ChilledCow', thumb: 'https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg' },
+  { id: 'DWcJFNfaw9c', title: 'Study Music Alpha Waves', artist: 'YellowBrickCinema', thumb: 'https://img.youtube.com/vi/DWcJFNfaw9c/mqdefault.jpg' },
 ];
 
 // ─── YouTube Player Hook ─────────────────────────────────────────────────────
