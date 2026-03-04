@@ -530,19 +530,130 @@ export default function App() {
   const [songPage, setSongPage] = useState(null);
   const [sideOpen, setSideOpen] = useState(false); // mobile sidebar
 
-  const ytRef      = useRef(null);
-  const tick       = useRef(null);
-  const queueRef   = useRef([]);
-  const qIdxRef    = useRef(0);
-  const shuffleRef = useRef(false);
-  const repeatRef  = useRef(false);
-  const autoplayRef= useRef(true);
+  const ytRef       = useRef(null);
+  const tick        = useRef(null);
+  const queueRef    = useRef([]);
+  const qIdxRef     = useRef(0);
+  const shuffleRef  = useRef(false);
+  const repeatRef   = useRef(false);
+  const autoplayRef = useRef(true);
+  const audioCtxRef = useRef(null);
+  const gainRef     = useRef(null);
+  const isPlayingRef= useRef(false);
+  const currentRef  = useRef(null);
 
   useEffect(()=>{ queueRef.current   = queue;   },[queue]);
   useEffect(()=>{ qIdxRef.current    = qIdx;    },[qIdx]);
   useEffect(()=>{ shuffleRef.current = shuffle; },[shuffle]);
   useEffect(()=>{ repeatRef.current  = repeat;  },[repeat]);
   useEffect(()=>{ autoplayRef.current= autoplay;},[autoplay]);
+
+  // ── Keep isPlaying & current in refs so visibility/media handlers see fresh data ──
+  useEffect(()=>{ isPlayingRef.current = isPlaying; },[isPlaying]);
+  useEffect(()=>{ currentRef.current  = current;   },[current]);
+
+  // ── Silent Web Audio keepalive — prevents mobile browser from suspending audio ──
+  // Plays a 0-gain oscillator so the audio context stays "active" in the background
+  useEffect(()=>{
+    const startKeepalive = () => {
+      try {
+        if (audioCtxRef.current) return; // already running
+        const ctx  = new (window.AudioContext || window.webkitAudioContext)();
+        const osc  = ctx.createOscillator();
+        const gain = ctx.createGain();
+        gain.gain.value = 0.00001; // inaudible
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        audioCtxRef.current = ctx;
+        gainRef.current     = gain;
+      } catch(e) { /* browser may block until user gesture */ }
+    };
+    // Start on first user interaction (required by browser policy)
+    const onGesture = () => { startKeepalive(); document.removeEventListener('click', onGesture); document.removeEventListener('touchstart', onGesture); };
+    document.addEventListener('click',      onGesture, { once: true });
+    document.addEventListener('touchstart', onGesture, { once: true });
+    return () => {
+      document.removeEventListener('click',      onGesture);
+      document.removeEventListener('touchstart', onGesture);
+    };
+  }, []);
+
+  // ── Visibility change — resume if browser paused us when going to background ──
+  useEffect(()=>{
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        // Resume Web Audio context if suspended
+        if (audioCtxRef.current?.state === 'suspended') {
+          audioCtxRef.current.resume().catch(()=>{});
+        }
+        // If we were playing before going to background, resume YouTube
+        setTimeout(() => {
+          if (isPlayingRef.current && ytRef.current?.getPlayerState) {
+            const state = ytRef.current.getPlayerState();
+            // state 2 = paused, state -1 = unstarted
+            if (state === 2 || state === -1) {
+              ytRef.current.playVideo();
+            }
+          }
+        }, 300);
+      }
+    };
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    return () => document.removeEventListener('visibilitychange', onVisibilityChange);
+  }, []);
+
+  // ── Media Session API — lock screen / notification controls ──
+  useEffect(()=>{
+    if (!('mediaSession' in navigator) || !current) return;
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title:  current.title,
+      artist: current.artist,
+      album:  current.album || 'Rhythmix',
+      artwork: [
+        { src: `https://img.youtube.com/vi/${current.id}/mqdefault.jpg`,  sizes: '320x180', type: 'image/jpeg' },
+        { src: `https://img.youtube.com/vi/${current.id}/hqdefault.jpg`,  sizes: '480x360', type: 'image/jpeg' },
+        { src: `https://img.youtube.com/vi/${current.id}/maxresdefault.jpg`, sizes: '1280x720', type: 'image/jpeg' },
+      ],
+    });
+    navigator.mediaSession.setActionHandler('play',          () => { ytRef.current?.playVideo();  });
+    navigator.mediaSession.setActionHandler('pause',         () => { ytRef.current?.pauseVideo(); });
+    navigator.mediaSession.setActionHandler('previoustrack', () => {
+      const q=queueRef.current, idx=qIdxRef.current;
+      const prev=Math.max(0,idx-1);
+      setQIdx(prev); qIdxRef.current=prev;
+      if(q[prev]){ setCurrent(q[prev]); setProgress(0); ytRef.current?.loadVideoById(q[prev].id); }
+    });
+    navigator.mediaSession.setActionHandler('nexttrack', () => {
+      const q=queueRef.current, idx=qIdxRef.current; if(!q.length)return;
+      const next=shuffleRef.current?Math.floor(Math.random()*q.length):(idx+1)%q.length;
+      setQIdx(next); qIdxRef.current=next;
+      setCurrent(q[next]); setProgress(0); ytRef.current?.loadVideoById(q[next].id);
+    });
+    navigator.mediaSession.setActionHandler('seekto', (details) => {
+      if (details.seekTime != null) { ytRef.current?.seekTo(details.seekTime); setProgress(details.seekTime); }
+    });
+    return () => {
+      ['play','pause','previoustrack','nexttrack','seekto'].forEach(a => {
+        try { navigator.mediaSession.setActionHandler(a, null); } catch(e){}
+      });
+    };
+  }, [current]);
+
+  // ── Keep Media Session playback state in sync ──
+  useEffect(()=>{
+    if (!('mediaSession' in navigator)) return;
+    navigator.mediaSession.playbackState = isPlaying ? 'playing' : 'paused';
+  }, [isPlaying]);
+
+  // ── Keep Media Session position in sync ──
+  useEffect(()=>{
+    if (!('mediaSession' in navigator) || !duration) return;
+    try {
+      navigator.mediaSession.setPositionState({ duration, playbackRate: 1, position: Math.min(progress, duration) });
+    } catch(e){}
+  }, [progress, duration]);
+
 
   const playNextFromRef = useCallback(()=>{
     const q=queueRef.current, idx=qIdxRef.current;
