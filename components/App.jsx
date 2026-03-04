@@ -101,7 +101,7 @@ export default function App() {
   const [activePlaylist, setActivePlaylist] = useState(null);
   const [playerExpanded, setPlayerExpanded] = useState(false);
   const progressInterval = useRef(null);
-  const apiKey = 'AIzaSyC4Q5rjq3e9b8N5_VkT2fmVTRAGJqkfN5Q'; // demo key - replace with your own
+  const apiKey = 'AIzaSyDYNO8ER1AgIbhQtzRhVoVKOC1U1SQfME8'; // demo key - replace with your own
 
   const handleStateChange = useCallback((state) => {
     if (state === 1) { // playing
