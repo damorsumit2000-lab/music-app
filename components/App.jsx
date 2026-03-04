@@ -6,7 +6,7 @@ import styles from './App.module.css';
 const SONGS = {
   trending: [
     { id: 'JGwWNGJdvx8', title: 'Shape of You', artist: 'Ed Sheeran', album: 'Divide', genre: 'Pop' },
-    { id: 'kTJczUoc26U', title: 'Señorita', artist: 'Shawn Mendes & Camila Cabello', album: 'Señorita', genre: 'Pop' },
+    { id: 'kTJczUoc26U', title: 'Señorita', artist: 'Shawn Mendes', album: 'Señorita', genre: 'Pop' },
     { id: 'OPf0YbXqDm0', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', album: 'Uptown Special', genre: 'Pop' },
     { id: 'nfWlot6h_JM', title: 'Shake It Off', artist: 'Taylor Swift', album: '1989', genre: 'Pop' },
     { id: 'SlPhMPnQ58k', title: 'Levitating', artist: 'Dua Lipa', album: 'Future Nostalgia', genre: 'Pop' },
@@ -18,25 +18,25 @@ const SONGS = {
     { id: 'YqeW9_5kURI', title: 'Perfect', artist: 'Ed Sheeran', album: 'Divide', genre: 'Pop' },
     { id: 'hT_nvWreIhg', title: 'Counting Stars', artist: 'OneRepublic', album: 'Native', genre: 'Pop Rock' },
     { id: 'RgKAFK5djSk', title: 'See You Again', artist: 'Wiz Khalifa ft. Charlie Puth', album: 'Furious 7', genre: 'Hip-Hop' },
-    { id: 'fHI8X4OXluQ', title: 'Astronaut In The Ocean', artist: 'Masked Wolf', album: 'Astronomical', genre: 'Hip-Hop' },
     { id: 'CevxZvSJLk8', title: 'Roar', artist: 'Katy Perry', album: 'PRISM', genre: 'Pop' },
     { id: '7wtfhZwyrcc', title: 'Stressed Out', artist: 'Twenty One Pilots', album: 'Blurryface', genre: 'Alternative' },
-    { id: 'TUVcZfQe-Kw', title: 'Closer', artist: 'The Chainsmokers ft. Halsey', album: 'Closer', genre: 'Electronic' },
+    { id: 'TUVcZfQe-Kw', title: 'Closer', artist: 'The Chainsmokers', album: 'Closer', genre: 'Electronic' },
     { id: 'uelHwf8o7_U', title: 'Bad Guy', artist: 'Billie Eilish', album: 'WWAFAWIA', genre: 'Pop' },
-    { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello & Bastille', album: 'Happier', genre: 'Electronic' },
-    { id: 'ZAl1sKAbFZ0', title: 'Old Town Road', artist: 'Lil Nas X ft. Billy Ray Cyrus', album: '7', genre: 'Country Rap' },
+    { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello', album: 'Happier', genre: 'Electronic' },
+    { id: 'ZAl1sKAbFZ0', title: 'Old Town Road', artist: 'Lil Nas X', album: '7', genre: 'Country Rap' },
+    { id: 'fHI8X4OXluQ', title: 'Astronaut In The Ocean', artist: 'Masked Wolf', album: 'Astronomical', genre: 'Hip-Hop' },
   ],
   bollywood: [
     { id: 'reIOoKhTHU8', title: 'Kesariya', artist: 'Arijit Singh', album: 'Brahmāstra', genre: 'Bollywood' },
     { id: 'BddP6PYo2gs', title: 'Tum Hi Ho', artist: 'Arijit Singh', album: 'Aashiqui 2', genre: 'Bollywood' },
     { id: 'pMsDDJqCGSY', title: 'Raataan Lambiyan', artist: 'Jubin Nautiyal', album: 'Shershaah', genre: 'Bollywood' },
-    { id: 'YVNKFaZBArM', title: 'Chaleya', artist: 'Arijit Singh & Shilpa Rao', album: 'Jawan', genre: 'Bollywood' },
+    { id: 'YVNKFaZBArM', title: 'Chaleya', artist: 'Arijit Singh', album: 'Jawan', genre: 'Bollywood' },
     { id: 'AHJOKyDFDHM', title: 'Bekhayali', artist: 'Sachet Tandon', album: 'Kabir Singh', genre: 'Bollywood' },
     { id: 'lSUCqkWH_Q0', title: 'Dil Diyan Gallan', artist: 'Atif Aslam', album: 'Tiger Zinda Hai', genre: 'Bollywood' },
     { id: '1wJP4m3rOJI', title: 'Apna Bana Le', artist: 'Arijit Singh', album: 'Bhediya', genre: 'Bollywood' },
     { id: 'JVxkr7QPYHY', title: 'Ik Vaari Aa', artist: 'Arijit Singh', album: 'Raabta', genre: 'Bollywood' },
     { id: 'pMF_RdCDpgI', title: 'Hawayein', artist: 'Arijit Singh', album: 'Jab Harry Met Sejal', genre: 'Bollywood' },
-    { id: 'WNIPqafd4As', title: 'Ghungroo', artist: 'Arijit Singh & Shilpa Rao', album: 'War', genre: 'Bollywood' },
+    { id: 'WNIPqafd4As', title: 'Ghungroo', artist: 'Arijit Singh', album: 'War', genre: 'Bollywood' },
     { id: 'Umqb9KENgmk', title: 'Tera Ban Jaunga', artist: 'Akhil Sachdeva', album: 'Kabir Singh', genre: 'Bollywood' },
     { id: 'wCBzE3Cgl5Q', title: 'Shayad', artist: 'Arijit Singh', album: 'Love Aaj Kal', genre: 'Bollywood' },
     { id: 'tQ5AKxjJGoI', title: 'Chaiyya Chaiyya', artist: 'Sukhwinder Singh', album: 'Dil Se', genre: 'Bollywood' },
@@ -46,16 +46,16 @@ const SONGS = {
   hiphop: [
     { id: 'YVkUvmDQ3HY', title: 'HUMBLE.', artist: 'Kendrick Lamar', album: 'DAMN.', genre: 'Hip-Hop' },
     { id: 'IHNzOHi8sJs', title: "God's Plan", artist: 'Drake', album: 'Scorpion', genre: 'Hip-Hop' },
-    { id: 'QjvzCTqkBDQ', title: 'Rockstar', artist: 'Post Malone ft. 21 Savage', album: 'Beerbongs & Bentleys', genre: 'Hip-Hop' },
+    { id: 'QjvzCTqkBDQ', title: 'Rockstar', artist: 'Post Malone', album: 'Beerbongs & Bentleys', genre: 'Hip-Hop' },
     { id: '6ONRf7h3Mdk', title: 'SICKO MODE', artist: 'Travis Scott', album: 'Astroworld', genre: 'Hip-Hop' },
-    { id: 'CvUa5lDXYnU', title: 'Sunflower', artist: 'Post Malone & Swae Lee', album: 'Spider-Man', genre: 'Hip-Hop' },
+    { id: 'CvUa5lDXYnU', title: 'Sunflower', artist: 'Post Malone', album: 'Spider-Man', genre: 'Hip-Hop' },
     { id: '6JnGBs88sL0', title: 'Lucid Dreams', artist: 'Juice WRLD', album: 'Goodbye & Good Riddance', genre: 'Hip-Hop' },
     { id: 'jFEGinsHWYE', title: 'XO Tour Llif3', artist: 'Lil Uzi Vert', album: 'Luv Is Rage 2', genre: 'Hip-Hop' },
     { id: 'bpOSxM0UIJ4', title: 'Hotline Bling', artist: 'Drake', album: 'If Youre Reading This', genre: 'Hip-Hop' },
     { id: 'ZAl1sKAbFZ0', title: 'Old Town Road', artist: 'Lil Nas X', album: '7', genre: 'Hip-Hop' },
     { id: 'Q0oIoR9mLPs', title: 'Rap God', artist: 'Eminem', album: 'MMLP2', genre: 'Hip-Hop' },
     { id: '4NRXx6U8ekM', title: 'Mask Off', artist: 'Future', album: 'Future', genre: 'Hip-Hop' },
-    { id: 'e-ORhEE9VVg', title: 'Bad and Boujee', artist: 'Migos ft. Lil Uzi Vert', album: 'Culture', genre: 'Hip-Hop' },
+    { id: 'e-ORhEE9VVg', title: 'Bad and Boujee', artist: 'Migos', album: 'Culture', genre: 'Hip-Hop' },
   ],
   tamil: [
     { id: 'tgbNymZ7vqY', title: 'Arabic Kuthu', artist: 'Anirudh Ravichander', album: 'Beast', genre: 'Tamil' },
@@ -69,11 +69,11 @@ const SONGS = {
     { id: 'LCmFY-BCZWY', title: 'Mersalaayitten', artist: 'A.R. Rahman', album: 'I', genre: 'Tamil' },
     { id: 'ZzMFJ8WSAP4', title: 'Aalaporan Tamizhan', artist: 'A.R. Rahman', album: 'Mersal', genre: 'Tamil' },
     { id: '8PNFKpLFDno', title: 'Chumma Kizhi', artist: 'Anirudh Ravichander', album: 'Pattas', genre: 'Tamil' },
-    { id: 'mhqSzqJumPE', title: 'Single Pasanga', artist: 'Anirudh Ravichander', album: 'Vignesh Shivan', genre: 'Tamil' },
+    { id: 'mhqSzqJumPE', title: 'Single Pasanga', artist: 'Anirudh Ravichander', album: 'Single Pasanga', genre: 'Tamil' },
   ],
   kpop: [
     { id: 'gdZLi9oWNZg', title: 'Dynamite', artist: 'BTS', album: 'BE', genre: 'K-Pop' },
-    { id: 'XsX3ATc3FbA', title: 'Boy With Luv', artist: 'BTS ft. Halsey', album: 'Map of the Soul', genre: 'K-Pop' },
+    { id: 'XsX3ATc3FbA', title: 'Boy With Luv', artist: 'BTS', album: 'Map of the Soul', genre: 'K-Pop' },
     { id: '9bZkp7q19f0', title: 'GANGNAM STYLE', artist: 'PSY', album: 'PSY 6', genre: 'K-Pop' },
     { id: 'MBdVXkSdhwU', title: 'Psycho', artist: 'Red Velvet', album: 'The ReVe Festival', genre: 'K-Pop' },
     { id: 'R3vsTVJxGfQ', title: 'How You Like That', artist: 'BLACKPINK', album: 'The Album', genre: 'K-Pop' },
@@ -99,258 +99,181 @@ const SONGS = {
 
 const GENRES = [
   { key: 'trending', label: 'Trending',  emoji: '🔥', color: '#ff4757' },
-  { key: 'bollywood', label: 'Bollywood', emoji: '🎬', color: '#ffa502' },
+  { key: 'bollywood',label: 'Bollywood', emoji: '🎬', color: '#ffa502' },
   { key: 'hiphop',   label: 'Hip-Hop',   emoji: '🎤', color: '#8b5cf6' },
   { key: 'tamil',    label: 'Tamil',     emoji: '🌟', color: '#06b6d4' },
   { key: 'kpop',     label: 'K-Pop',     emoji: '✨', color: '#ec4899' },
   { key: 'lofi',     label: 'Lofi',      emoji: '🎧', color: '#10b981' },
 ];
 
-const thumb = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
-const fmt   = (s)  => {
-  if (!s || isNaN(s)) return '0:00';
-  return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
-};
+const thumb   = (id) => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+const fmt     = (s)  => { if (!s || isNaN(s)) return '0:00'; return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`; };
 const getColor = (id) => {
-  const PALETTE = ['#ff4757','#ffa502','#8b5cf6','#06b6d4','#ec4899','#10b981','#f59e0b','#3b82f6','#ef4444','#14b8a6'];
-  let h = 0;
-  for (let c of id) h = c.charCodeAt(0) + ((h << 5) - h);
-  return PALETTE[Math.abs(h) % PALETTE.length];
+  const P = ['#ff4757','#ffa502','#8b5cf6','#06b6d4','#ec4899','#10b981','#f59e0b','#3b82f6','#ef4444','#14b8a6'];
+  let h = 0; for (let c of id) h = c.charCodeAt(0) + ((h<<5)-h);
+  return P[Math.abs(h) % P.length];
 };
 
-// ─── Audio Visualizer (CSS-based, reacts to play state) ─────────────────────
-function Visualizer({ playing, color }) {
-  const bars = Array.from({ length: 32 }, (_, i) => i);
-  return (
-    <div className={styles.visualizer}>
-      {bars.map(i => (
-        <div key={i} className={`${styles.vBar} ${playing ? styles.vBarActive : ''}`}
-          style={{
-            '--delay': `${(i * 0.04) % 0.8}s`,
-            '--height': `${20 + Math.sin(i * 0.8) * 40 + Math.cos(i * 0.5) * 20}%`,
-            '--color': color,
-          }} />
-      ))}
-    </div>
-  );
-}
+// ─── Noise filter for search results ─────────────────────────────────────────
+// Removes compilations, podcasts, interviews, bg music packs, soundtracks w/ dialogue
+const NOISE_RE = /\b(podcast|interview|reaction|commentary|behind the scenes|making of|full movie|trailer|teaser|promo|dialogue|monologue|speech|address|rant|rant|ambient|background music pack|ringtone|karaoke)\b/i;
+const isMusicVideo = (item) => {
+  const t = (item.snippet?.title || '') + ' ' + (item.snippet?.description || '');
+  if (NOISE_RE.test(t)) return false;
+  // must have a valid videoId
+  return !!item.id?.videoId;
+};
 
-// ─── Ambient Background (reacts to song color) ───────────────────────────────
-function AmbientBg({ color, playing }) {
-  return (
-    <div className={styles.ambient}>
-      <div className={`${styles.ambientOrb} ${styles.ambientOrb1} ${playing ? styles.ambientPlaying : ''}`}
-        style={{ '--c': color }} />
-      <div className={`${styles.ambientOrb} ${styles.ambientOrb2} ${playing ? styles.ambientPlaying : ''}`}
-        style={{ '--c': color }} />
-      <div className={`${styles.ambientOrb} ${styles.ambientOrb3} ${playing ? styles.ambientPlaying : ''}`}
-        style={{ '--c': color }} />
-    </div>
-  );
-}
-
-// ─── Mini EQ ─────────────────────────────────────────────────────────────────
-function EQ({ active, color = '#ff4757' }) {
-  return (
-    <div className={styles.eq} style={{ '--eq-color': color }}>
-      {[0,1,2,3].map(i => (
-        <span key={i} className={`${styles.eqBar} ${active ? styles.eqActive : ''}`}
-          style={{ animationDelay: `${i * 0.12}s` }} />
-      ))}
-    </div>
-  );
-}
-
-// ─── Song Card ────────────────────────────────────────────────────────────────
-function SongCard({ song, isActive, isPlaying, onPlay, onLike, liked, onOpenPage }) {
-  const color = getColor(song.id);
-  return (
-    <div className={`${styles.songCard} ${isActive ? styles.songCardActive : ''}`}
-      style={{ '--cc': color }}>
-      <div className={styles.cardThumb} onClick={() => onPlay(song)}>
-        <img src={thumb(song.id)} alt={song.title} className={styles.cardThumbImg} />
-        <div className={styles.cardOverlay}>
-          {isActive && isPlaying ? <EQ active color="#fff" /> : <span className={styles.cardPlay}>▶</span>}
-        </div>
-        {isActive && <div className={styles.cardGlowBar} style={{ background: color }} />}
-      </div>
-      <div className={styles.cardBody}>
-        <div className={styles.cardTitleRow}>
-          <span className={styles.cardTitle} style={isActive ? { color } : {}}
-            onClick={() => onOpenPage(song)}>{song.title}</span>
-          <button className={`${styles.cardHeart} ${liked ? styles.cardHeartOn : ''}`}
-            style={liked ? { color } : {}} onClick={() => onLike(song)}>
-            {liked ? '♥' : '♡'}
-          </button>
-        </div>
-        <span className={styles.cardArtist}>{song.artist}</span>
-        <span className={styles.cardGenre}>{song.genre}</span>
-      </div>
-    </div>
-  );
-}
-
-// ─── Song Row ─────────────────────────────────────────────────────────────────
-function SongRow({ song, index, isActive, isPlaying, onPlay, onLike, liked, onOpenPage }) {
-  const color = getColor(song.id);
-  return (
-    <div className={`${styles.songRow} ${isActive ? styles.songRowActive : ''}`}
-      style={isActive ? { '--rc': color } : {}} onClick={() => onPlay(song)}>
-      <div className={styles.rowNum}>
-        {isActive ? <EQ active={isPlaying} color={color} /> : <span className={styles.rowNumText}>{index + 1}</span>}
-      </div>
-      <img src={thumb(song.id)} alt={song.title} className={styles.rowThumb} onClick={e => { e.stopPropagation(); onOpenPage(song); }} />
-      <div className={styles.rowInfo}>
-        <span className={styles.rowTitle} style={isActive ? { color } : {}}>{song.title}</span>
-        <span className={styles.rowArtist}>{song.artist}</span>
-      </div>
-      <span className={styles.rowGenre}>{song.genre}</span>
-      <button className={`${styles.rowHeart} ${liked ? styles.rowHeartOn : ''}`}
-        style={liked ? { color } : {}}
-        onClick={e => { e.stopPropagation(); onLike(song); }}>
-        {liked ? '♥' : '♡'}
-      </button>
-    </div>
-  );
-}
-
-// ─── Parse LRC lyrics from lrclib ────────────────────────────────────────────
+// ─── Parse LRC ───────────────────────────────────────────────────────────────
 function parseLrc(lrc) {
   if (!lrc) return [];
-  const lines = lrc.split('\n');
   const result = [];
-  const timeRe = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/g;
-  for (const line of lines) {
-    const text = line.replace(/\[.*?\]/g, '').trim();
+  const lineRe = /\[(\d{2}):(\d{2})\.(\d{2,3})\]([^\[]*)/g;
+  let m;
+  while ((m = lineRe.exec(lrc)) !== null) {
+    const text = m[4].trim();
     if (!text) continue;
-    let match;
-    timeRe.lastIndex = 0;
-    while ((match = timeRe.exec(line)) !== null) {
-      const mins = parseInt(match[1]);
-      const secs = parseInt(match[2]);
-      const ms   = parseInt(match[3].padEnd(3, '0'));
-      result.push({ time: mins * 60 + secs + ms / 1000, text });
-    }
+    const time = parseInt(m[1])*60 + parseInt(m[2]) + parseInt(m[3].padEnd(3,'0'))/1000;
+    result.push({ time, text });
   }
-  return result.sort((a, b) => a.time - b.time);
+  return result.sort((a,b) => a.time - b.time);
 }
 
-// ─── Lyrics Hook (lrclib.net) ─────────────────────────────────────────────────
+// ─── useLyrics — lrclib.net via allorigins CORS proxy ────────────────────────
 function useLyrics(song) {
-  const [lines,   setLines]   = useState([]);
-  const [status,  setStatus]  = useState('idle'); // idle | loading | ok | notfound | error
+  const [lines,  setLines]  = useState([]);
+  const [status, setStatus] = useState('idle');
   const lastKey = useRef('');
 
   useEffect(() => {
     if (!song) return;
-    // Clean artist: strip features/ft./x collaborators for better matching
-    const artistClean = song.artist.split(/\s*(?:ft\.?|feat\.?|&|x\s)\s*/i)[0].trim();
-    const key = `${song.title}__${artistClean}`;
+    const artist = song.artist.split(/\s*(?:ft\.?|feat\.?|&|x )\s*/i)[0].trim();
+    const key = `${song.title}__${artist}`;
     if (key === lastKey.current) return;
     lastKey.current = key;
+    setLines([]); setStatus('loading');
 
-    setLines([]);
-    setStatus('loading');
+    // Use allorigins as a CORS proxy so lrclib works from the browser
+    const target = `https://lrclib.net/api/get?artist_name=${encodeURIComponent(artist)}&track_name=${encodeURIComponent(song.title)}`;
+    const proxy  = `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`;
 
-    const url = `https://lrclib.net/api/get?artist_name=${encodeURIComponent(artistClean)}&track_name=${encodeURIComponent(song.title)}`;
+    fetch(proxy)
+      .then(r => { if (!r.ok) throw new Error(); return r.json(); })
+      .then(wrapper => {
+        if (!wrapper?.contents) { setStatus('notfound'); return; }
+        // allorigins wraps in { contents: "..." }
+        let data;
+        try { data = JSON.parse(wrapper.contents); } catch { setStatus('notfound'); return; }
+        if (data?.statusCode === 404 || !data) { setStatus('notfound'); return; }
 
-    fetch(url)
-      .then(r => {
-        if (r.status === 404) { setStatus('notfound'); return null; }
-        if (!r.ok) throw new Error('Network error');
-        return r.json();
-      })
-      .then(data => {
-        if (!data) return;
-        const parsed = parseLrc(data.syncedLyrics || data.plainLyrics);
-        if (parsed.length) {
-          setLines(parsed);
-          setStatus('ok');
-        } else if (data.plainLyrics) {
-          // Plain lyrics — no timestamps, show as static lines
-          const plain = data.plainLyrics.split('\n')
-            .map((text, i) => ({ time: -1, text: text.trim() }))
-            .filter(l => l.text);
-          setLines(plain);
-          setStatus('plain');
-        } else {
-          setStatus('notfound');
+        if (data.syncedLyrics) {
+          const parsed = parseLrc(data.syncedLyrics);
+          if (parsed.length) { setLines(parsed); setStatus('synced'); return; }
         }
+        if (data.plainLyrics) {
+          const plain = data.plainLyrics.split('\n').map(t => ({ time: -1, text: t.trim() })).filter(l => l.text);
+          setLines(plain); setStatus('plain'); return;
+        }
+        setStatus('notfound');
       })
       .catch(() => setStatus('error'));
-  }, [song]);
+  }, [song?.title, song?.artist]);
 
   return { lines, status };
 }
 
-// ─── Lyrics Panel ─────────────────────────────────────────────────────────────
-function LyricsPanel({ song, progress, color, isPlaying }) {
-  const { lines, status } = useLyrics(song);
-  const containerRef = useRef(null);
-  const activeRef    = useRef(null);
-  const isSynced = lines.length > 0 && lines[0].time >= 0;
+// ─── Visualizer ───────────────────────────────────────────────────────────────
+function Visualizer({ playing, color }) {
+  return (
+    <div className={styles.visualizer}>
+      {Array.from({length:32},(_,i)=>(
+        <div key={i} className={`${styles.vBar} ${playing?styles.vBarActive:''}`}
+          style={{ '--d':`${(i*0.04)%0.8}s`, '--h':`${20+Math.sin(i*0.8)*40+Math.cos(i*0.5)*20}%`, '--c':color }} />
+      ))}
+    </div>
+  );
+}
 
-  // Find active line index
+// ─── Ambient orbs ─────────────────────────────────────────────────────────────
+function AmbientBg({ color, playing }) {
+  return (
+    <div className={styles.ambient}>
+      {[1,2,3].map(n=>(
+        <div key={n} className={`${styles.ambientOrb} ${styles[`ambientOrb${n}`]} ${playing?styles.ambientPlaying:''}`}
+          style={{'--c':color}}/>
+      ))}
+    </div>
+  );
+}
+
+// ─── Mini EQ ──────────────────────────────────────────────────────────────────
+function EQ({ active, color='#ff4757' }) {
+  return (
+    <div className={styles.eq} style={{'--eq':color}}>
+      {[0,1,2,3].map(i=>(
+        <span key={i} className={`${styles.eqBar} ${active?styles.eqActive:''}`}
+          style={{animationDelay:`${i*0.12}s`}}/>
+      ))}
+    </div>
+  );
+}
+
+// ─── Lyrics Panel ─────────────────────────────────────────────────────────────
+function LyricsPanel({ song, progress, color }) {
+  const { lines, status } = useLyrics(song);
+  const scrollRef = useRef(null);
+  const activeRef = useRef(null);
+  const isSynced  = status === 'synced';
+
   const activeIdx = isSynced
-    ? lines.reduce((best, line, i) => line.time <= progress ? i : best, -1)
+    ? lines.reduce((best, l, i) => l.time <= progress ? i : best, -1)
     : -1;
 
-  // Auto-scroll active line into center
   useEffect(() => {
-    if (!isSynced || !activeRef.current || !containerRef.current) return;
-    const container = containerRef.current;
-    const el        = activeRef.current;
-    const offset    = el.offsetTop - container.clientHeight / 2 + el.clientHeight / 2;
-    container.scrollTo({ top: offset, behavior: 'smooth' });
+    if (!isSynced || !activeRef.current || !scrollRef.current) return;
+    const el = activeRef.current;
+    const box = scrollRef.current;
+    box.scrollTo({ top: el.offsetTop - box.clientHeight/2 + el.clientHeight/2, behavior:'smooth' });
   }, [activeIdx, isSynced]);
 
   return (
     <div className={styles.lyricsPanel}>
-      <div className={styles.lyricsPanelHeader}>
+      <div className={styles.lyricsPanelHead}>
         <span className={styles.lyricsPanelIcon}>♪</span>
         <span className={styles.lyricsPanelTitle}>Lyrics</span>
-        {status === 'ok'    && <span className={styles.lyricsBadge} style={{ background: `${color}33`, color }}>Synced</span>}
-        {status === 'plain' && <span className={styles.lyricsBadge} style={{ background: `${color}33`, color }}>Static</span>}
+        {status==='synced' && <span className={styles.lyricsBadge} style={{background:`${color}30`,color}}>Synced ✦</span>}
+        {status==='plain'  && <span className={styles.lyricsBadge} style={{background:`${color}30`,color}}>Static</span>}
       </div>
 
-      {status === 'loading' && (
+      {status==='loading' && (
         <div className={styles.lyricsState}>
-          <div className={styles.lyricsSpinner} style={{ borderTopColor: color }} />
+          <div className={styles.lyricsSpinner} style={{borderTopColor:color}}/>
           <p>Fetching lyrics…</p>
         </div>
       )}
-
-      {status === 'notfound' && (
+      {status==='notfound' && (
         <div className={styles.lyricsState}>
           <span className={styles.lyricsStateIcon}>♩</span>
           <p className={styles.lyricsStateTitle}>No lyrics found</p>
-          <p className={styles.lyricsStateSub}>Try searching a different version of this song</p>
+          <p className={styles.lyricsStateSub}>Not available for this song</p>
         </div>
       )}
-
-      {status === 'error' && (
+      {status==='error' && (
         <div className={styles.lyricsState}>
           <span className={styles.lyricsStateIcon}>⚠</span>
           <p className={styles.lyricsStateTitle}>Couldn't load lyrics</p>
           <p className={styles.lyricsStateSub}>Check your internet connection</p>
         </div>
       )}
-
-      {(status === 'ok' || status === 'plain') && (
-        <div className={styles.lyricsScroll} ref={containerRef}>
-          {lines.map((line, i) => {
-            const isActive  = isSynced && i === activeIdx;
-            const isPast    = isSynced && i < activeIdx;
-            const isFuture  = isSynced && i > activeIdx;
+      {(status==='synced'||status==='plain') && (
+        <div className={styles.lyricsScroll} ref={scrollRef}>
+          {lines.map((line,i)=>{
+            const isActive = isSynced && i===activeIdx;
+            const isPast   = isSynced && i<activeIdx;
             return (
-              <p key={i}
-                ref={isActive ? activeRef : null}
-                className={`${styles.lyricLine}
-                  ${isActive  ? styles.lyricLineActive  : ''}
-                  ${isPast    ? styles.lyricLinePast    : ''}
-                  ${isFuture  ? styles.lyricLineFuture  : ''}
-                  ${!isSynced ? styles.lyricLineStatic  : ''}`}
-                style={isActive ? { color, textShadow: `0 0 30px ${color}88` } : {}}>
+              <p key={i} ref={isActive?activeRef:null}
+                className={`${styles.lyricLine} ${isActive?styles.lyricActive:''} ${isPast?styles.lyricPast:''} ${!isSynced?styles.lyricStatic:''}`}
+                style={isActive?{color,textShadow:`0 0 30px ${color}66`}:{}}>
                 {line.text}
               </p>
             );
@@ -361,100 +284,226 @@ function LyricsPanel({ song, progress, color, isPlaying }) {
   );
 }
 
-// ─── Song Page (Full Screen) ──────────────────────────────────────────────────
+// ─── Song Card (grid) ─────────────────────────────────────────────────────────
+function SongCard({ song, isActive, isPlaying, onPlay, onLike, liked, onOpenPage }) {
+  const color = getColor(song.id);
+  return (
+    <div className={`${styles.songCard} ${isActive?styles.songCardActive:''}`} style={{'--cc':color}}>
+      <div className={styles.cardThumb} onClick={()=>onPlay(song)}>
+        <img src={thumb(song.id)} alt={song.title} className={styles.cardThumbImg}/>
+        <div className={styles.cardOverlay}>
+          {isActive&&isPlaying?<EQ active color="#fff"/>:<span className={styles.cardPlay}>▶</span>}
+        </div>
+        {isActive&&<div className={styles.cardGlowBar} style={{background:color}}/>}
+      </div>
+      <div className={styles.cardBody}>
+        <div className={styles.cardTitleRow}>
+          <span className={styles.cardTitle} style={isActive?{color}:{}} onClick={()=>onOpenPage(song)}>{song.title}</span>
+          <button className={`${styles.cardHeart} ${liked?styles.cardHeartOn:''}`} style={liked?{color}:{}} onClick={()=>onLike(song)}>{liked?'♥':'♡'}</button>
+        </div>
+        <span className={styles.cardArtist}>{song.artist}</span>
+        <span className={styles.cardGenre}>{song.genre}</span>
+      </div>
+    </div>
+  );
+}
+
+// ─── Song Row (list) ──────────────────────────────────────────────────────────
+function SongRow({ song, index, isActive, isPlaying, onPlay, onLike, liked, onOpenPage }) {
+  const color = getColor(song.id);
+  return (
+    <div className={`${styles.songRow} ${isActive?styles.songRowActive:''}`}
+      style={isActive?{'--rc':color}:{}} onClick={()=>onPlay(song)}>
+      <div className={styles.rowNum}>
+        {isActive?<EQ active={isPlaying} color={color}/>:<span className={styles.rowNumText}>{index+1}</span>}
+      </div>
+      <img src={thumb(song.id)} alt={song.title} className={styles.rowThumb} onClick={e=>{e.stopPropagation();onOpenPage(song);}}/>
+      <div className={styles.rowInfo}>
+        <span className={styles.rowTitle} style={isActive?{color}:{}}>{song.title}</span>
+        <span className={styles.rowArtist}>{song.artist}</span>
+      </div>
+      <span className={styles.rowGenre}>{song.genre}</span>
+      <button className={`${styles.rowHeart} ${liked?styles.rowHeartOn:''}`}
+        style={liked?{color}:{}} onClick={e=>{e.stopPropagation();onLike(song);}}>{liked?'♥':'♡'}</button>
+    </div>
+  );
+}
+
+// ─── Song Page — responsive drawer ───────────────────────────────────────────
 function SongPage({ song, isPlaying, progress, duration, volume, shuffle, repeat, autoplay,
   onTogglePlay, onNext, onPrev, onSeek, onVolume, onShuffle, onRepeat, onAutoplay,
   onLike, isLiked, onClose, queue, qIdx, onPlayFromQueue, theme }) {
   const color = getColor(song.id);
+  // mobile tab state: 'player' | 'lyrics' | 'queue'
+  const [tab, setTab] = useState('player');
 
   return (
-    <div className={`${styles.songPage} ${styles[theme]}`} style={{ '--sp': color }}>
-      <AmbientBg color={color} playing={isPlaying} />
-      <Visualizer playing={isPlaying} color={color} />
+    <div className={`${styles.songPage} ${styles[theme]}`} style={{'--sp':color}}>
+      <AmbientBg color={color} playing={isPlaying}/>
+      <Visualizer playing={isPlaying} color={color}/>
+
+      {/* Close */}
       <button className={styles.spClose} onClick={onClose}>✕</button>
 
-      <div className={styles.spLayout}>
+      {/* ── Desktop 3-col layout ── */}
+      <div className={styles.spDesktop}>
 
-        {/* ── Col 1: Art + Controls ── */}
+        {/* Col 1 — Art + Controls */}
         <div className={styles.spLeft}>
-          <div className={styles.spArtWrap} style={{ boxShadow: `0 0 80px ${color}66, 0 0 160px ${color}22` }}>
+          {/* Art: fixed square, no overflow bleed */}
+          <div className={styles.spArtWrap} style={{boxShadow:`0 0 70px ${color}55, 0 0 140px ${color}1a`}}>
             <img src={thumb(song.id)} alt={song.title} className={styles.spArt}
-              style={{ animation: isPlaying ? 'spSpin 20s linear infinite' : 'none' }} />
-            <div className={styles.spArtRing} style={{ borderColor: `${color}88`,
-              animation: isPlaying ? 'ringPulse 2s ease-in-out infinite' : 'none' }} />
+              style={{animation: isPlaying ? 'spSpin 22s linear infinite' : 'none'}}/>
+            <div className={styles.spArtRing} style={{borderColor:`${color}77`,
+              animation: isPlaying ? 'ringPulse 2s ease-in-out infinite' : 'none'}}/>
           </div>
 
           <div className={styles.spInfo}>
             <h1 className={styles.spTitle}>{song.title}</h1>
-            <p className={styles.spArtist}>{song.artist}</p>
+            <p className={styles.spArtistName} style={{color}}>{song.artist}</p>
             <p className={styles.spAlbum}>{song.album} · {song.genre}</p>
           </div>
 
           <div className={styles.spMeta}>
-            <button className={`${styles.spLike} ${isLiked ? styles.spLikeOn : ''}`}
-              style={isLiked ? { color, borderColor: color } : {}} onClick={() => onLike(song)}>
-              {isLiked ? '♥ Liked' : '♡ Like'}
+            <button className={`${styles.spBtn} ${isLiked?styles.spBtnOn:''}`}
+              style={isLiked?{color,borderColor:color}:{}} onClick={()=>onLike(song)}>
+              {isLiked?'♥ Liked':'♡ Like'}
             </button>
-            <button className={`${styles.spAutoplay} ${autoplay ? styles.spAutoplayOn : ''}`}
-              style={autoplay ? { color, borderColor: color } : {}} onClick={onAutoplay}>
-              ⟳ {autoplay ? 'Autoplay ON' : 'Autoplay OFF'}
+            <button className={`${styles.spBtn} ${autoplay?styles.spBtnOn:''}`}
+              style={autoplay?{color,borderColor:color}:{}} onClick={onAutoplay}>
+              ⟳ {autoplay?'Autoplay ON':'Autoplay OFF'}
             </button>
           </div>
 
           <div className={styles.spProgressSection}>
             <div className={styles.spProgressBar} onClick={onSeek}>
-              <div className={styles.spProgressFill} style={{ width: duration ? `${(progress/duration)*100}%` : '0%', background: color }} />
-              <div className={styles.spProgressDot} style={{ left: duration ? `${(progress/duration)*100}%` : '0%', background: color }} />
+              <div className={styles.spFill} style={{width:duration?`${(progress/duration)*100}%`:'0%',background:color}}/>
+              <div className={styles.spDot}   style={{left:duration?`${(progress/duration)*100}%`:'0%',background:color}}/>
             </div>
             <div className={styles.spTimes}><span>{fmt(progress)}</span><span>{fmt(duration)}</span></div>
           </div>
 
           <div className={styles.spControls}>
-            <button className={`${styles.spCtrl} ${shuffle ? styles.spCtrlOn : ''}`}
-              style={shuffle ? { color } : {}} onClick={onShuffle}>⇄</button>
+            <button className={`${styles.spCtrl} ${shuffle?styles.spCtrlOn:''}`} style={shuffle?{color}:{}} onClick={onShuffle}>⇄</button>
             <button className={styles.spCtrlLg} onClick={onPrev}>⏮</button>
-            <button className={styles.spPlayBtn}
-              style={{ background: color, boxShadow: `0 0 40px ${color}88` }} onClick={onTogglePlay}>
-              {isPlaying ? '⏸' : '▶'}
+            <button className={styles.spPlayBtn} style={{background:color,boxShadow:`0 0 36px ${color}88`}} onClick={onTogglePlay}>
+              {isPlaying?'⏸':'▶'}
             </button>
             <button className={styles.spCtrlLg} onClick={onNext}>⏭</button>
-            <button className={`${styles.spCtrl} ${repeat ? styles.spCtrlOn : ''}`}
-              style={repeat ? { color } : {}} onClick={onRepeat}>↺</button>
+            <button className={`${styles.spCtrl} ${repeat?styles.spCtrlOn:''}`} style={repeat?{color}:{}} onClick={onRepeat}>↺</button>
           </div>
 
           <div className={styles.spVolume}>
-            <span className={styles.spVolIcon}>{volume === 0 ? '🔇' : volume < 50 ? '🔉' : '🔊'}</span>
+            <span>{volume===0?'🔇':volume<50?'🔉':'🔊'}</span>
             <input type="range" min="0" max="100" value={volume} onChange={onVolume}
-              className={styles.spVolSlider} style={{ '--vp': `${volume}%`, '--vc': color }} />
+              className={styles.spVolSlider} style={{'--vp':`${volume}%`,'--vc':color}}/>
           </div>
         </div>
 
-        {/* ── Col 2: Live Lyrics ── */}
-        <LyricsPanel song={song} progress={progress} color={color} isPlaying={isPlaying} />
+        {/* Col 2 — Lyrics */}
+        <LyricsPanel song={song} progress={progress} color={color}/>
 
-        {/* ── Col 3: Queue ── */}
+        {/* Col 3 — Queue */}
         <div className={styles.spRight}>
-          <h3 className={styles.spQueueTitle}>Up Next</h3>
+          <p className={styles.spRightTitle}>Up Next</p>
           <div className={styles.spQueue}>
-            {queue.map((s, i) => {
-              const qColor = getColor(s.id);
+            {queue.map((s,i)=>{
+              const qc=getColor(s.id);
               return (
-                <div key={s.id + i}
-                  className={`${styles.spQueueItem} ${i === qIdx ? styles.spQueueItemActive : ''}`}
-                  style={i === qIdx ? { '--qc': qColor } : {}}
-                  onClick={() => onPlayFromQueue(i)}>
-                  <img src={thumb(s.id)} alt={s.title} className={styles.spQueueThumb} />
-                  <div className={styles.spQueueInfo}>
-                    <span className={styles.spQueueTitle2} style={i === qIdx ? { color: qColor } : {}}>{s.title}</span>
-                    <span className={styles.spQueueArtist}>{s.artist}</span>
+                <div key={s.id+i} className={`${styles.spQItem} ${i===qIdx?styles.spQItemActive:''}`}
+                  style={i===qIdx?{'--qc':qc}:{}} onClick={()=>onPlayFromQueue(i)}>
+                  <img src={thumb(s.id)} alt={s.title} className={styles.spQThumb}/>
+                  <div className={styles.spQInfo}>
+                    <span className={styles.spQTitle} style={i===qIdx?{color:qc}:{}}>{s.title}</span>
+                    <span className={styles.spQArtist}>{s.artist}</span>
                   </div>
-                  {i === qIdx && <EQ active={isPlaying} color={qColor} />}
+                  {i===qIdx&&<EQ active={isPlaying} color={qc}/>}
                 </div>
               );
             })}
           </div>
         </div>
+      </div>
 
+      {/* ── Mobile layout — tabs + bottom sheet ── */}
+      <div className={styles.spMobile}>
+        {/* Tab bar */}
+        <div className={styles.spTabs}>
+          {['player','lyrics','queue'].map(t=>(
+            <button key={t} className={`${styles.spTab} ${tab===t?styles.spTabActive:''}`}
+              style={tab===t?{color,borderColor:color}:{}} onClick={()=>setTab(t)}>
+              {t==='player'?'♫ Player':t==='lyrics'?'♪ Lyrics':'☰ Queue'}
+            </button>
+          ))}
+        </div>
+
+        {/* Player tab */}
+        {tab==='player'&&(
+          <div className={styles.spMobilePlayer}>
+            <div className={styles.spArtWrapMobile} style={{boxShadow:`0 0 50px ${color}55`}}>
+              <img src={thumb(song.id)} alt={song.title} className={styles.spArtMobile}
+                style={{animation: isPlaying ? 'spSpin 22s linear infinite' : 'none'}}/>
+              <div className={styles.spArtRingMobile} style={{borderColor:`${color}77`,
+                animation: isPlaying ? 'ringPulse 2s ease-in-out infinite' : 'none'}}/>
+            </div>
+            <div className={styles.spInfoMobile}>
+              <h1 className={styles.spTitleMobile}>{song.title}</h1>
+              <p className={styles.spArtistMobile} style={{color}}>{song.artist}</p>
+            </div>
+            <div className={styles.spMetaMobile}>
+              <button className={`${styles.spBtn} ${isLiked?styles.spBtnOn:''}`}
+                style={isLiked?{color,borderColor:color}:{}} onClick={()=>onLike(song)}>
+                {isLiked?'♥':'♡'}
+              </button>
+              <button className={`${styles.spBtn} ${autoplay?styles.spBtnOn:''}`}
+                style={autoplay?{color,borderColor:color}:{}} onClick={onAutoplay}>⟳</button>
+            </div>
+            <div className={styles.spProgressSection}>
+              <div className={styles.spProgressBar} onClick={onSeek}>
+                <div className={styles.spFill} style={{width:duration?`${(progress/duration)*100}%`:'0%',background:color}}/>
+                <div className={styles.spDot}   style={{left:duration?`${(progress/duration)*100}%`:'0%',background:color}}/>
+              </div>
+              <div className={styles.spTimes}><span>{fmt(progress)}</span><span>{fmt(duration)}</span></div>
+            </div>
+            <div className={styles.spControls}>
+              <button className={`${styles.spCtrl} ${shuffle?styles.spCtrlOn:''}`} style={shuffle?{color}:{}} onClick={onShuffle}>⇄</button>
+              <button className={styles.spCtrlLg} onClick={onPrev}>⏮</button>
+              <button className={styles.spPlayBtn} style={{background:color,boxShadow:`0 0 30px ${color}88`}} onClick={onTogglePlay}>
+                {isPlaying?'⏸':'▶'}
+              </button>
+              <button className={styles.spCtrlLg} onClick={onNext}>⏭</button>
+              <button className={`${styles.spCtrl} ${repeat?styles.spCtrlOn:''}`} style={repeat?{color}:{}} onClick={onRepeat}>↺</button>
+            </div>
+            <div className={styles.spVolume}>
+              <span>{volume===0?'🔇':volume<50?'🔉':'🔊'}</span>
+              <input type="range" min="0" max="100" value={volume} onChange={onVolume}
+                className={styles.spVolSlider} style={{'--vp':`${volume}%`,'--vc':color}}/>
+            </div>
+          </div>
+        )}
+
+        {/* Lyrics tab */}
+        {tab==='lyrics'&&<LyricsPanel song={song} progress={progress} color={color}/>}
+
+        {/* Queue tab */}
+        {tab==='queue'&&(
+          <div className={styles.spQueueMobile}>
+            {queue.map((s,i)=>{
+              const qc=getColor(s.id);
+              return (
+                <div key={s.id+i} className={`${styles.spQItem} ${i===qIdx?styles.spQItemActive:''}`}
+                  style={i===qIdx?{'--qc':qc}:{}} onClick={()=>{onPlayFromQueue(i);setTab('player');}}>
+                  <img src={thumb(s.id)} alt={s.title} className={styles.spQThumb}/>
+                  <div className={styles.spQInfo}>
+                    <span className={styles.spQTitle} style={i===qIdx?{color:qc}:{}}>{s.title}</span>
+                    <span className={styles.spQArtist}>{s.artist}</span>
+                  </div>
+                  {i===qIdx&&<EQ active={isPlaying} color={qc}/>}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -478,238 +527,162 @@ export default function App() {
   const [shuffle,  setShuffle]  = useState(false);
   const [repeat,   setRepeat]   = useState(false);
   const [autoplay, setAutoplay] = useState(true);
-  const [songPage, setSongPage] = useState(null); // song object or null
-  const [ytReady,  setYtReady]  = useState(false);
+  const [songPage, setSongPage] = useState(null);
+  const [sideOpen, setSideOpen] = useState(false); // mobile sidebar
 
-  const ytRef   = useRef(null);
-  const tick    = useRef(null);
-  const queueRef   = useRef(queue);
-  const qIdxRef    = useRef(qIdx);
-  const shuffleRef = useRef(shuffle);
-  const repeatRef  = useRef(repeat);
-  const autoplayRef= useRef(autoplay);
+  const ytRef      = useRef(null);
+  const tick       = useRef(null);
+  const queueRef   = useRef([]);
+  const qIdxRef    = useRef(0);
+  const shuffleRef = useRef(false);
+  const repeatRef  = useRef(false);
+  const autoplayRef= useRef(true);
 
-  // Keep refs in sync so callbacks always see latest values
-  useEffect(() => { queueRef.current   = queue;    }, [queue]);
-  useEffect(() => { qIdxRef.current    = qIdx;     }, [qIdx]);
-  useEffect(() => { shuffleRef.current = shuffle;  }, [shuffle]);
-  useEffect(() => { repeatRef.current  = repeat;   }, [repeat]);
-  useEffect(() => { autoplayRef.current= autoplay; }, [autoplay]);
+  useEffect(()=>{ queueRef.current   = queue;   },[queue]);
+  useEffect(()=>{ qIdxRef.current    = qIdx;    },[qIdx]);
+  useEffect(()=>{ shuffleRef.current = shuffle; },[shuffle]);
+  useEffect(()=>{ repeatRef.current  = repeat;  },[repeat]);
+  useEffect(()=>{ autoplayRef.current= autoplay;},[autoplay]);
 
-  // ── Init YouTube Player ────────────────────────────────────────────────────
-  useEffect(() => {
-    const onReady = () => {
-      setYtReady(true);
-      ytRef.current.setVolume(80);
-    };
-    const onStateChange = (e) => {
-      const state = e.data;
-      if (state === 1) { // playing
+  const playNextFromRef = useCallback(()=>{
+    const q=queueRef.current, idx=qIdxRef.current;
+    if(!q.length) return;
+    const next = shuffleRef.current ? Math.floor(Math.random()*q.length) : (idx+1)%q.length;
+    setQIdx(next); qIdxRef.current=next;
+    const s=q[next]; setCurrent(s); setSongPage(prev=>prev?s:null); setProgress(0);
+    ytRef.current?.loadVideoById(s.id);
+  },[]);
+
+  useEffect(()=>{
+    const onReady = ()=>{ ytRef.current.setVolume(80); };
+    const onStateChange = (e)=>{
+      const st=e.data;
+      if(st===1){
         setIsPlaying(true);
         clearInterval(tick.current);
-        tick.current = setInterval(() => {
-          if (ytRef.current?.getCurrentTime) {
-            setProgress(ytRef.current.getCurrentTime() || 0);
-            setDuration(ytRef.current.getDuration()    || 0);
-          }
-        }, 300);
-      } else if (state === 2) { // paused
-        setIsPlaying(false);
+        tick.current=setInterval(()=>{
+          setProgress(ytRef.current?.getCurrentTime()||0);
+          setDuration(ytRef.current?.getDuration()||0);
+        },300);
+      } else if(st===2){
+        setIsPlaying(false); clearInterval(tick.current);
+      } else if(st===0){
         clearInterval(tick.current);
-      } else if (state === 0) { // ended
-        clearInterval(tick.current);
-        // Use refs so this always has fresh data
-        if (repeatRef.current) {
-          ytRef.current?.seekTo(0);
-          ytRef.current?.playVideo();
-        } else if (autoplayRef.current) {
-          playNextFromRef();
-        }
+        if(repeatRef.current){ ytRef.current?.seekTo(0); ytRef.current?.playVideo(); }
+        else if(autoplayRef.current){ playNextFromRef(); }
       }
     };
-
-    const init = () => {
-      ytRef.current = new window.YT.Player('yt-hidden', {
-        height: '1', width: '1',
-        playerVars: { autoplay: 0, controls: 0, rel: 0, fs: 0, modestbranding: 1, iv_load_policy: 3 },
-        events: { onReady, onStateChange },
+    const init=()=>{
+      ytRef.current=new window.YT.Player('yt-hidden',{
+        height:'1',width:'1',
+        playerVars:{autoplay:0,controls:0,rel:0,fs:0,modestbranding:1,iv_load_policy:3},
+        events:{onReady,onStateChange},
       });
     };
-
-    if (window.YT?.Player) { init(); return; }
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
+    if(window.YT?.Player){init();return;}
+    const tag=document.createElement('script');
+    tag.src='https://www.youtube.com/iframe_api';
     document.head.appendChild(tag);
-    window.onYouTubeIframeAPIReady = init;
-    return () => {
-      clearInterval(tick.current);
-      window.onYouTubeIframeAPIReady = null;
-    };
-  }, []);
+    window.onYouTubeIframeAPIReady=init;
+    return()=>{ clearInterval(tick.current); window.onYouTubeIframeAPIReady=null; };
+  },[playNextFromRef]);
 
-  // ── Play next using refs (works inside YT callback) ───────────────────────
-  const playNextFromRef = useCallback(() => {
-    const q   = queueRef.current;
-    const idx = qIdxRef.current;
-    if (!q.length) return;
-    let next;
-    if (shuffleRef.current) {
-      next = Math.floor(Math.random() * q.length);
-    } else {
-      next = (idx + 1) % q.length;
-    }
-    setQIdx(next);
-    qIdxRef.current = next;
-    const song = q[next];
-    setCurrent(song);
-    setSongPage(prev => prev ? song : null); // update song page if open
-    setProgress(0);
-    if (ytRef.current?.loadVideoById) {
-      ytRef.current.loadVideoById(song.id);
-    }
-  }, []);
+  const playSong=useCallback((song,q,idx)=>{
+    setCurrent(song); setProgress(0);
+    if(q!==undefined){ setQueue(q); setQIdx(idx??0); queueRef.current=q; qIdxRef.current=idx??0; }
+    ytRef.current?.loadVideoById(song.id);
+    ytRef.current?.setVolume(volume);
+  },[volume]);
 
-  // ── Play song ─────────────────────────────────────────────────────────────
-  const playSong = useCallback((song, newQueue, idx) => {
-    setCurrent(song);
-    setProgress(0);
-    if (newQueue !== undefined) {
-      setQueue(newQueue);
-      setQIdx(idx ?? 0);
-      queueRef.current  = newQueue;
-      qIdxRef.current   = idx ?? 0;
-    }
-    if (ytRef.current?.loadVideoById) {
-      ytRef.current.loadVideoById(song.id);
-      ytRef.current.setVolume(volume);
-    }
-  }, [volume]);
+  const goNext=useCallback(()=>{
+    const q=queueRef.current,idx=qIdxRef.current; if(!q.length)return;
+    const next=shuffle?Math.floor(Math.random()*q.length):(idx+1)%q.length;
+    setQIdx(next); qIdxRef.current=next; playSong(q[next]);
+  },[shuffle,playSong]);
 
-  // ── Next / Prev ───────────────────────────────────────────────────────────
-  const goNext = useCallback(() => {
-    const q   = queueRef.current;
-    const idx = qIdxRef.current;
-    if (!q.length) return;
-    const next = shuffle ? Math.floor(Math.random() * q.length) : (idx + 1) % q.length;
-    setQIdx(next);
-    qIdxRef.current = next;
-    playSong(q[next]);
-  }, [shuffle, playSong]);
+  const goPrev=useCallback(()=>{
+    if(progress>3){ytRef.current?.seekTo(0);return;}
+    const q=queueRef.current,idx=qIdxRef.current;
+    const prev=Math.max(0,idx-1); setQIdx(prev); qIdxRef.current=prev;
+    if(q[prev])playSong(q[prev]);
+  },[progress,playSong]);
 
-  const goPrev = useCallback(() => {
-    if (progress > 3) { ytRef.current?.seekTo(0); return; }
-    const q   = queueRef.current;
-    const idx = qIdxRef.current;
-    const prev = Math.max(0, idx - 1);
-    setQIdx(prev);
-    qIdxRef.current = prev;
-    if (q[prev]) playSong(q[prev]);
-  }, [progress, playSong]);
+  const togglePlay=()=>{ if(!current)return; isPlaying?ytRef.current?.pauseVideo():ytRef.current?.playVideo(); };
+  const seek=(e)=>{ const p=(e.clientX-e.currentTarget.getBoundingClientRect().left)/e.currentTarget.offsetWidth; const t=p*duration; ytRef.current?.seekTo(t); setProgress(t); };
+  const handleVolume=(e)=>{ const v=+e.target.value; setVolume(v); ytRef.current?.setVolume(v); };
+  const toggleLike=(song)=>{ setLiked(prev=>prev.find(s=>s.id===song.id)?prev.filter(s=>s.id!==song.id):[song,...prev]); };
+  const isLikedFn=(id)=>liked.some(s=>s.id===id);
 
-  const togglePlay = () => {
-    if (!current) return;
-    isPlaying ? ytRef.current?.pauseVideo() : ytRef.current?.playVideo();
-  };
-
-  const seek = (e) => {
-    const pct = (e.clientX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
-    const t = pct * duration;
-    ytRef.current?.seekTo(t);
-    setProgress(t);
-  };
-
-  const handleVolume = (e) => {
-    const v = +e.target.value;
-    setVolume(v);
-    ytRef.current?.setVolume(v);
-  };
-
-  const toggleLike = (song) => {
-    setLiked(prev => prev.find(s => s.id === song.id)
-      ? prev.filter(s => s.id !== song.id)
-      : [song, ...prev]);
-  };
-
-  const isLikedFn = (id) => liked.some(s => s.id === id);
-
-  // ── Search ─────────────────────────────────────────────────────────────────
-  const apiKey = 'AIzaSyDYNO8ER1AgIbhQtzRhVoVKOC1U1SQfME8';
-  const doSearch = async (q) => {
-    if (!q.trim()) return;
+  // Search — music-only filter
+  const apiKey='AIzaSyDYNO8ER1AgIbhQtzRhVoVKOC1U1SQfME8';
+  const doSearch=async(q)=>{
+    if(!q.trim())return;
     setView('search');
-    try {
-      const res  = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q+' song audio')}&type=video&videoCategoryId=10&maxResults=30&key=${apiKey}`);
-      const data = await res.json();
-      if (data.items?.length) {
-        setResults(data.items.filter(i => i.id?.videoId).map(i => ({
-          id:     i.id.videoId,
-          title:  i.snippet.title.replace(/\(Official.*?\)/gi,'').replace(/\[.*?\]/gi,'').trim(),
-          artist: i.snippet.channelTitle.replace(' - Topic','').replace('VEVO','').trim(),
-          album: '', genre: 'Search',
-        })));
-      } else {
-        fallbackSearch(q);
-      }
-    } catch { fallbackSearch(q); }
+    try{
+      // videoCategoryId=10 = Music, videoDuration=medium (4-20min avoids shorts/clips)
+      // safeSearch=none, adding "official audio" biases toward clean music uploads
+      const url=`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q+' official audio')}&type=video&videoCategoryId=10&videoDuration=medium&safeSearch=moderate&maxResults=40&key=${apiKey}`;
+      const res=await fetch(url);
+      const data=await res.json();
+      if(data.items?.length){
+        const filtered=data.items
+          .filter(isMusicVideo)  // strip podcasts/dialogue/noise
+          .map(i=>({
+            id:i.id.videoId,
+            title:i.snippet.title
+              .replace(/\(Official.*?\)/gi,'').replace(/\[.*?\]/gi,'')
+              .replace(/\|.*$/,'').replace(/official audio/gi,'').trim(),
+            artist:i.snippet.channelTitle.replace(' - Topic','').replace(/VEVO/i,'').trim(),
+            album:'',genre:'Search',
+          }));
+        setResults(filtered.length?filtered:fallbackSearchArr(q));
+      } else { setResults(fallbackSearchArr(q)); }
+    }catch{ setResults(fallbackSearchArr(q)); }
   };
-  const fallbackSearch = (q) => {
-    const all = Object.values(SONGS).flat();
-    setResults(all.filter(s => s.title.toLowerCase().includes(q.toLowerCase()) || s.artist.toLowerCase().includes(q.toLowerCase())));
+  const fallbackSearchArr=(q)=>{
+    const all=Object.values(SONGS).flat();
+    return all.filter(s=>s.title.toLowerCase().includes(q.toLowerCase())||s.artist.toLowerCase().includes(q.toLowerCase()));
   };
 
-  const curColor  = current ? getColor(current.id) : '#ff4757';
-  const curGenre  = GENRES.find(g => g.key === genre);
-  const songList  = view === 'search' ? results : view === 'liked' ? liked : SONGS[genre] || [];
+  useEffect(()=>{
+    document.title=current?`${current.title} — Rhythmix`:'Rhythmix — Music for the Bold';
+  },[current]);
 
-  // ── Update document title ─────────────────────────────────────────────────
-  useEffect(() => {
-    if (current) document.title = `${current.title} — Rhythmix`;
-    else document.title = 'Rhythmix — Music for the Bold';
-  }, [current]);
+  const curColor=current?getColor(current.id):'#8b5cf6';
+  const curGenre=GENRES.find(g=>g.key===genre);
+
+  const openSongPage=(song,q,idx)=>{ playSong(song,q,idx); setSongPage(song); };
 
   return (
     <div className={`${styles.root} ${styles[theme]}`}>
-      <div id="yt-hidden" style={{ position:'fixed', width:1, height:1, opacity:0, pointerEvents:'none' }} />
+      <div id="yt-hidden" style={{position:'fixed',width:1,height:1,opacity:0,pointerEvents:'none'}}/>
 
-      {/* ── Full Screen Song Page ── */}
-      {songPage && (
-        <SongPage
-          song={songPage}
-          isPlaying={isPlaying}
-          progress={progress}
-          duration={duration}
-          volume={volume}
-          shuffle={shuffle}
-          repeat={repeat}
-          autoplay={autoplay}
-          queue={queue}
-          qIdx={qIdx}
-          theme={theme}
-          isLiked={isLikedFn(songPage.id)}
-          onTogglePlay={togglePlay}
-          onNext={goNext}
-          onPrev={goPrev}
-          onSeek={seek}
-          onVolume={handleVolume}
-          onShuffle={() => setShuffle(v => !v)}
-          onRepeat={() => setRepeat(v => !v)}
-          onAutoplay={() => setAutoplay(v => !v)}
-          onLike={toggleLike}
-          onClose={() => setSongPage(null)}
-          onPlayFromQueue={(i) => { setQIdx(i); qIdxRef.current = i; playSong(queue[i]); setSongPage(queue[i]); }}
-        />
+      {/* Song Page overlay */}
+      {songPage&&(
+        <SongPage song={songPage} isPlaying={isPlaying} progress={progress} duration={duration}
+          volume={volume} shuffle={shuffle} repeat={repeat} autoplay={autoplay}
+          queue={queue} qIdx={qIdx} theme={theme} isLiked={isLikedFn(songPage.id)}
+          onTogglePlay={togglePlay} onNext={goNext} onPrev={goPrev} onSeek={seek}
+          onVolume={handleVolume} onShuffle={()=>setShuffle(v=>!v)} onRepeat={()=>setRepeat(v=>!v)}
+          onAutoplay={()=>setAutoplay(v=>!v)} onLike={toggleLike} onClose={()=>setSongPage(null)}
+          onPlayFromQueue={(i)=>{ setQIdx(i);qIdxRef.current=i;playSong(queue[i]);setSongPage(queue[i]); }}/>
       )}
 
+      {/* Mobile sidebar overlay */}
+      {sideOpen&&<div className={styles.sideOverlay} onClick={()=>setSideOpen(false)}/>}
+
       {/* ── Sidebar ── */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${sideOpen?styles.sidebarVisible:''}`}>
         <div className={styles.logo}>
-          <div className={styles.logoIcon} style={{ background: curColor }}>♫</div>
+          <div className={styles.logoIcon} style={{background:curColor}}>♫</div>
           <span className={styles.logoText}>Rhythmix</span>
+          <button className={styles.sideCloseBtn} onClick={()=>setSideOpen(false)}>✕</button>
         </div>
         <nav className={styles.nav}>
           {[{v:'home',i:'⌂',l:'Discover'},{v:'search',i:'⌕',l:'Search'},{v:'liked',i:'♥',l:'Liked'}].map(n=>(
             <button key={n.v} className={`${styles.navBtn} ${view===n.v?styles.navBtnActive:''}`}
-              style={view===n.v?{'--nb':curColor}:{}} onClick={()=>setView(n.v)}>
+              style={view===n.v?{'--nb':curColor}:{}}
+              onClick={()=>{setView(n.v);setSideOpen(false);}}>
               <span className={styles.navIcon}>{n.i}</span><span>{n.l}</span>
             </button>
           ))}
@@ -720,7 +693,7 @@ export default function App() {
             <button key={g.key}
               className={`${styles.genreBtn} ${genre===g.key&&view==='home'?styles.genreBtnActive:''}`}
               style={genre===g.key&&view==='home'?{'--gb':g.color}:{}}
-              onClick={()=>{setGenre(g.key);setView('home');}}>
+              onClick={()=>{setGenre(g.key);setView('home');setSideOpen(false);}}>
               <span>{g.emoji}</span><span>{g.label}</span>
               <span className={styles.genreCount}>{SONGS[g.key]?.length}</span>
             </button>
@@ -730,8 +703,7 @@ export default function App() {
           <div className={styles.sideRecent}>
             <p className={styles.sideRecentLabel}>Recently Liked</p>
             {liked.slice(0,4).map(s=>(
-              <div key={s.id} className={styles.sideItem}
-                onClick={()=>{playSong(s,liked,liked.indexOf(s));setSongPage(s);}}>
+              <div key={s.id} className={styles.sideItem} onClick={()=>{ openSongPage(s,liked,liked.indexOf(s)); setSideOpen(false); }}>
                 <img src={thumb(s.id)} alt={s.title} className={styles.sideItemThumb}/>
                 <div className={styles.sideItemInfo}>
                   <span className={styles.sideItemTitle}>{s.title}</span>
@@ -746,9 +718,15 @@ export default function App() {
       {/* ── Main ── */}
       <div className={styles.main}>
         <header className={styles.topbar}>
+          {/* Hamburger for mobile */}
+          <button className={styles.hamburger} onClick={()=>setSideOpen(v=>!v)}>☰</button>
+          <div className={styles.topbarLogo}>
+            <div className={styles.logoIconSm} style={{background:curColor}}>♫</div>
+            <span className={styles.logoTextSm}>Rhythmix</span>
+          </div>
           <form className={styles.searchBar} onSubmit={e=>{e.preventDefault();doSearch(query);}}>
             <span className={styles.searchIcon}>⌕</span>
-            <input className={styles.searchInput} placeholder="Search any song or artist…"
+            <input className={styles.searchInput} placeholder="Search songs, artists…"
               value={query} onChange={e=>setQuery(e.target.value)}/>
             {query&&<button type="button" className={styles.searchClear} onClick={()=>{setQuery('');setView('home');}}>✕</button>}
           </form>
@@ -759,7 +737,7 @@ export default function App() {
 
         <div className={styles.content}>
 
-          {/* HOME */}
+          {/* ── HOME ── */}
           {view==='home'&&(
             <div className={styles.homeView}>
               <div className={styles.hero} style={{'--hc':curGenre?.color||'#ff4757'}}>
@@ -773,13 +751,12 @@ export default function App() {
                   </h1>
                   <p className={styles.heroMeta}>{SONGS[genre]?.length} songs</p>
                   <button className={styles.heroPlay} style={{background:curGenre?.color}}
-                    onClick={()=>{const s=SONGS[genre];playSong(s[0],s,0);setSongPage(s[0]);}}>▶ Play All</button>
+                    onClick={()=>{const s=SONGS[genre];openSongPage(s[0],s,0);}}>▶ Play All</button>
                 </div>
               </div>
               <div className={styles.pills}>
                 {GENRES.map(g=>(
-                  <button key={g.key}
-                    className={`${styles.pill} ${genre===g.key?styles.pillActive:''}`}
+                  <button key={g.key} className={`${styles.pill} ${genre===g.key?styles.pillActive:''}`}
                     style={genre===g.key?{background:g.color,borderColor:g.color,color:'#fff'}:{}}
                     onClick={()=>setGenre(g.key)}>{g.emoji} {g.label}</button>
                 ))}
@@ -787,9 +764,9 @@ export default function App() {
               <div className={styles.cardGrid}>
                 {SONGS[genre]?.map((s,i)=>(
                   <SongCard key={s.id} song={s} isActive={current?.id===s.id} isPlaying={isPlaying}
-                    onPlay={song=>{playSong(song,SONGS[genre],i);}}
+                    onPlay={song=>playSong(song,SONGS[genre],i)}
                     onLike={toggleLike} liked={isLikedFn(s.id)}
-                    onOpenPage={song=>{playSong(song,SONGS[genre],i);setSongPage(song);}}/>
+                    onOpenPage={song=>openSongPage(song,SONGS[genre],i)}/>
                 ))}
               </div>
               <div className={styles.listSection}>
@@ -797,15 +774,15 @@ export default function App() {
                 <div className={styles.listHeader}><span>#</span><span>Song</span><span>Genre</span><span></span></div>
                 {SONGS[genre]?.map((s,i)=>(
                   <SongRow key={s.id+i} song={s} index={i} isActive={current?.id===s.id}
-                    isPlaying={isPlaying} onPlay={song=>{playSong(song,SONGS[genre],i);}}
+                    isPlaying={isPlaying} onPlay={song=>playSong(song,SONGS[genre],i)}
                     onLike={toggleLike} liked={isLikedFn(s.id)}
-                    onOpenPage={song=>{playSong(song,SONGS[genre],i);setSongPage(song);}}/>
+                    onOpenPage={song=>openSongPage(song,SONGS[genre],i)}/>
                 ))}
               </div>
             </div>
           )}
 
-          {/* SEARCH */}
+          {/* ── SEARCH ── */}
           {view==='search'&&(
             <div className={styles.searchView}>
               {results.length>0?(
@@ -814,9 +791,9 @@ export default function App() {
                   <div className={styles.cardGrid}>
                     {results.map((s,i)=>(
                       <SongCard key={s.id} song={s} isActive={current?.id===s.id} isPlaying={isPlaying}
-                        onPlay={song=>{playSong(song,results,i);}}
+                        onPlay={song=>playSong(song,results,i)}
                         onLike={toggleLike} liked={isLikedFn(s.id)}
-                        onOpenPage={song=>{playSong(song,results,i);setSongPage(song);}}/>
+                        onOpenPage={song=>openSongPage(song,results,i)}/>
                     ))}
                   </div>
                 </>
@@ -835,7 +812,7 @@ export default function App() {
             </div>
           )}
 
-          {/* LIKED */}
+          {/* ── LIKED ── */}
           {view==='liked'&&(
             <div className={styles.likedView}>
               <div className={styles.likedHero} style={{'--lc':curColor}}>
@@ -845,7 +822,7 @@ export default function App() {
                   <h1 className={styles.likedTitle}>Liked Songs</h1>
                   <p className={styles.likedMeta}>{liked.length} songs</p>
                   {liked.length>0&&<button className={styles.likedPlay} style={{background:curColor}}
-                    onClick={()=>{playSong(liked[0],liked,0);setSongPage(liked[0]);}}>▶ Play All</button>}
+                    onClick={()=>openSongPage(liked[0],liked,0)}>▶ Play All</button>}
                 </div>
               </div>
               {liked.length===0?(
@@ -857,22 +834,22 @@ export default function App() {
                 </div>
               ):liked.map((s,i)=>(
                 <SongRow key={s.id} song={s} index={i} isActive={current?.id===s.id}
-                  isPlaying={isPlaying} onPlay={song=>{playSong(song,liked,i);}}
+                  isPlaying={isPlaying} onPlay={song=>playSong(song,liked,i)}
                   onLike={toggleLike} liked
-                  onOpenPage={song=>{playSong(song,liked,i);setSongPage(song);}}/>
+                  onOpenPage={song=>openSongPage(song,liked,i)}/>
               ))}
             </div>
           )}
         </div>
       </div>
 
-      {/* ── Bottom Player Bar ── */}
+      {/* ── Player Bar ── */}
       <footer className={styles.player} style={{'--pc':curColor}}>
         <div className={styles.playerGlow} style={{background:`linear-gradient(90deg,${curColor}22,transparent)`}}/>
         {current?(
           <>
             <div className={styles.pTrack} onClick={()=>setSongPage(current)} style={{cursor:'pointer'}}>
-              <div className={styles.pArt} style={{boxShadow:`0 0 20px ${curColor}55`}}>
+              <div className={styles.pArt} style={{boxShadow:`0 0 18px ${curColor}55`}}>
                 <img src={thumb(current.id)} alt={current.title} className={styles.pArtImg}/>
                 {isPlaying&&<div className={styles.pArtRing} style={{borderColor:curColor}}/>}
               </div>
@@ -888,22 +865,19 @@ export default function App() {
             </div>
             <div className={styles.pCenter}>
               <div className={styles.pBtns}>
-                <button className={`${styles.pCtrl} ${shuffle?styles.pCtrlOn:''}`}
-                  style={shuffle?{color:curColor}:{}} onClick={()=>setShuffle(v=>!v)} title="Shuffle">⇄</button>
+                <button className={`${styles.pCtrl} ${shuffle?styles.pCtrlOn:''}`} style={shuffle?{color:curColor}:{}} onClick={()=>setShuffle(v=>!v)}>⇄</button>
                 <button className={styles.pCtrl} onClick={goPrev}>⏮</button>
-                <button className={styles.pPlay}
-                  style={{background:curColor,boxShadow:`0 0 20px ${curColor}77`}} onClick={togglePlay}>
+                <button className={styles.pPlay} style={{background:curColor,boxShadow:`0 0 20px ${curColor}77`}} onClick={togglePlay}>
                   {isPlaying?'⏸':'▶'}
                 </button>
                 <button className={styles.pCtrl} onClick={goNext}>⏭</button>
-                <button className={`${styles.pCtrl} ${repeat?styles.pCtrlOn:''}`}
-                  style={repeat?{color:curColor}:{}} onClick={()=>setRepeat(v=>!v)} title="Repeat">↺</button>
+                <button className={`${styles.pCtrl} ${repeat?styles.pCtrlOn:''}`} style={repeat?{color:curColor}:{}} onClick={()=>setRepeat(v=>!v)}>↺</button>
               </div>
               <div className={styles.pProgress}>
                 <span className={styles.pTime}>{fmt(progress)}</span>
                 <div className={styles.pTrackBar} onClick={seek}>
                   <div className={styles.pFill} style={{width:duration?`${(progress/duration)*100}%`:'0%',background:curColor}}/>
-                  <div className={styles.pDot} style={{left:duration?`${(progress/duration)*100}%`:'0%',background:curColor}}/>
+                  <div className={styles.pDot}  style={{left:duration?`${(progress/duration)*100}%`:'0%',background:curColor}}/>
                 </div>
                 <span className={styles.pTime}>{fmt(duration)}</span>
               </div>
@@ -913,8 +887,7 @@ export default function App() {
                 style={autoplay?{color:curColor}:{}} onClick={()=>setAutoplay(v=>!v)} title="Autoplay">⟳</button>
               <span className={styles.pVol}>{volume===0?'🔇':volume<50?'🔉':'🔊'}</span>
               <input type="range" min="0" max="100" value={volume} className={styles.pVolSlider}
-                style={{'--vp':`${volume}%`,'--vc':curColor}}
-                onChange={handleVolume}/>
+                style={{'--vp':`${volume}%`,'--vc':curColor}} onChange={handleVolume}/>
             </div>
           </>
         ):(
