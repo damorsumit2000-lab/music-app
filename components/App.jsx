@@ -214,25 +214,168 @@ function SongRow({ song, index, isActive, isPlaying, onPlay, onLike, liked, onOp
   );
 }
 
+// ─── Parse LRC lyrics from lrclib ────────────────────────────────────────────
+function parseLrc(lrc) {
+  if (!lrc) return [];
+  const lines = lrc.split('\n');
+  const result = [];
+  const timeRe = /\[(\d{2}):(\d{2})\.(\d{2,3})\]/g;
+  for (const line of lines) {
+    const text = line.replace(/\[.*?\]/g, '').trim();
+    if (!text) continue;
+    let match;
+    timeRe.lastIndex = 0;
+    while ((match = timeRe.exec(line)) !== null) {
+      const mins = parseInt(match[1]);
+      const secs = parseInt(match[2]);
+      const ms   = parseInt(match[3].padEnd(3, '0'));
+      result.push({ time: mins * 60 + secs + ms / 1000, text });
+    }
+  }
+  return result.sort((a, b) => a.time - b.time);
+}
+
+// ─── Lyrics Hook (lrclib.net) ─────────────────────────────────────────────────
+function useLyrics(song) {
+  const [lines,   setLines]   = useState([]);
+  const [status,  setStatus]  = useState('idle'); // idle | loading | ok | notfound | error
+  const lastKey = useRef('');
+
+  useEffect(() => {
+    if (!song) return;
+    // Clean artist: strip features/ft./x collaborators for better matching
+    const artistClean = song.artist.split(/\s*(?:ft\.?|feat\.?|&|x\s)\s*/i)[0].trim();
+    const key = `${song.title}__${artistClean}`;
+    if (key === lastKey.current) return;
+    lastKey.current = key;
+
+    setLines([]);
+    setStatus('loading');
+
+    const url = `https://lrclib.net/api/get?artist_name=${encodeURIComponent(artistClean)}&track_name=${encodeURIComponent(song.title)}`;
+
+    fetch(url)
+      .then(r => {
+        if (r.status === 404) { setStatus('notfound'); return null; }
+        if (!r.ok) throw new Error('Network error');
+        return r.json();
+      })
+      .then(data => {
+        if (!data) return;
+        const parsed = parseLrc(data.syncedLyrics || data.plainLyrics);
+        if (parsed.length) {
+          setLines(parsed);
+          setStatus('ok');
+        } else if (data.plainLyrics) {
+          // Plain lyrics — no timestamps, show as static lines
+          const plain = data.plainLyrics.split('\n')
+            .map((text, i) => ({ time: -1, text: text.trim() }))
+            .filter(l => l.text);
+          setLines(plain);
+          setStatus('plain');
+        } else {
+          setStatus('notfound');
+        }
+      })
+      .catch(() => setStatus('error'));
+  }, [song]);
+
+  return { lines, status };
+}
+
+// ─── Lyrics Panel ─────────────────────────────────────────────────────────────
+function LyricsPanel({ song, progress, color, isPlaying }) {
+  const { lines, status } = useLyrics(song);
+  const containerRef = useRef(null);
+  const activeRef    = useRef(null);
+  const isSynced = lines.length > 0 && lines[0].time >= 0;
+
+  // Find active line index
+  const activeIdx = isSynced
+    ? lines.reduce((best, line, i) => line.time <= progress ? i : best, -1)
+    : -1;
+
+  // Auto-scroll active line into center
+  useEffect(() => {
+    if (!isSynced || !activeRef.current || !containerRef.current) return;
+    const container = containerRef.current;
+    const el        = activeRef.current;
+    const offset    = el.offsetTop - container.clientHeight / 2 + el.clientHeight / 2;
+    container.scrollTo({ top: offset, behavior: 'smooth' });
+  }, [activeIdx, isSynced]);
+
+  return (
+    <div className={styles.lyricsPanel}>
+      <div className={styles.lyricsPanelHeader}>
+        <span className={styles.lyricsPanelIcon}>♪</span>
+        <span className={styles.lyricsPanelTitle}>Lyrics</span>
+        {status === 'ok'    && <span className={styles.lyricsBadge} style={{ background: `${color}33`, color }}>Synced</span>}
+        {status === 'plain' && <span className={styles.lyricsBadge} style={{ background: `${color}33`, color }}>Static</span>}
+      </div>
+
+      {status === 'loading' && (
+        <div className={styles.lyricsState}>
+          <div className={styles.lyricsSpinner} style={{ borderTopColor: color }} />
+          <p>Fetching lyrics…</p>
+        </div>
+      )}
+
+      {status === 'notfound' && (
+        <div className={styles.lyricsState}>
+          <span className={styles.lyricsStateIcon}>♩</span>
+          <p className={styles.lyricsStateTitle}>No lyrics found</p>
+          <p className={styles.lyricsStateSub}>Try searching a different version of this song</p>
+        </div>
+      )}
+
+      {status === 'error' && (
+        <div className={styles.lyricsState}>
+          <span className={styles.lyricsStateIcon}>⚠</span>
+          <p className={styles.lyricsStateTitle}>Couldn't load lyrics</p>
+          <p className={styles.lyricsStateSub}>Check your internet connection</p>
+        </div>
+      )}
+
+      {(status === 'ok' || status === 'plain') && (
+        <div className={styles.lyricsScroll} ref={containerRef}>
+          {lines.map((line, i) => {
+            const isActive  = isSynced && i === activeIdx;
+            const isPast    = isSynced && i < activeIdx;
+            const isFuture  = isSynced && i > activeIdx;
+            return (
+              <p key={i}
+                ref={isActive ? activeRef : null}
+                className={`${styles.lyricLine}
+                  ${isActive  ? styles.lyricLineActive  : ''}
+                  ${isPast    ? styles.lyricLinePast    : ''}
+                  ${isFuture  ? styles.lyricLineFuture  : ''}
+                  ${!isSynced ? styles.lyricLineStatic  : ''}`}
+                style={isActive ? { color, textShadow: `0 0 30px ${color}88` } : {}}>
+                {line.text}
+              </p>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Song Page (Full Screen) ──────────────────────────────────────────────────
 function SongPage({ song, isPlaying, progress, duration, volume, shuffle, repeat, autoplay,
   onTogglePlay, onNext, onPrev, onSeek, onVolume, onShuffle, onRepeat, onAutoplay,
-  onLike, isLiked, onClose, queue, qIdx, onPlayFromQueue, onToggleLike, theme }) {
+  onLike, isLiked, onClose, queue, qIdx, onPlayFromQueue, theme }) {
   const color = getColor(song.id);
 
   return (
     <div className={`${styles.songPage} ${styles[theme]}`} style={{ '--sp': color }}>
-      {/* Ambient background */}
       <AmbientBg color={color} playing={isPlaying} />
-
-      {/* Visualizer behind art */}
       <Visualizer playing={isPlaying} color={color} />
-
-      {/* Close */}
       <button className={styles.spClose} onClick={onClose}>✕</button>
 
       <div className={styles.spLayout}>
-        {/* Left — Art + Info */}
+
+        {/* ── Col 1: Art + Controls ── */}
         <div className={styles.spLeft}>
           <div className={styles.spArtWrap} style={{ boxShadow: `0 0 80px ${color}66, 0 0 160px ${color}22` }}>
             <img src={thumb(song.id)} alt={song.title} className={styles.spArt}
@@ -247,66 +390,49 @@ function SongPage({ song, isPlaying, progress, duration, volume, shuffle, repeat
             <p className={styles.spAlbum}>{song.album} · {song.genre}</p>
           </div>
 
-          {/* Like + autoplay */}
           <div className={styles.spMeta}>
             <button className={`${styles.spLike} ${isLiked ? styles.spLikeOn : ''}`}
-              style={isLiked ? { color, borderColor: color } : {}}
-              onClick={() => onLike(song)}>
+              style={isLiked ? { color, borderColor: color } : {}} onClick={() => onLike(song)}>
               {isLiked ? '♥ Liked' : '♡ Like'}
             </button>
             <button className={`${styles.spAutoplay} ${autoplay ? styles.spAutoplayOn : ''}`}
-              style={autoplay ? { color, borderColor: color } : {}}
-              onClick={onAutoplay}>
-              ⟳ Autoplay {autoplay ? 'ON' : 'OFF'}
+              style={autoplay ? { color, borderColor: color } : {}} onClick={onAutoplay}>
+              ⟳ {autoplay ? 'Autoplay ON' : 'Autoplay OFF'}
             </button>
           </div>
 
-          {/* Progress */}
           <div className={styles.spProgressSection}>
             <div className={styles.spProgressBar} onClick={onSeek}>
               <div className={styles.spProgressFill} style={{ width: duration ? `${(progress/duration)*100}%` : '0%', background: color }} />
               <div className={styles.spProgressDot} style={{ left: duration ? `${(progress/duration)*100}%` : '0%', background: color }} />
             </div>
-            <div className={styles.spTimes}>
-              <span>{fmt(progress)}</span>
-              <span>{fmt(duration)}</span>
-            </div>
+            <div className={styles.spTimes}><span>{fmt(progress)}</span><span>{fmt(duration)}</span></div>
           </div>
 
-          {/* Controls */}
           <div className={styles.spControls}>
             <button className={`${styles.spCtrl} ${shuffle ? styles.spCtrlOn : ''}`}
-              style={shuffle ? { color } : {}} onClick={onShuffle} title="Shuffle">⇄</button>
+              style={shuffle ? { color } : {}} onClick={onShuffle}>⇄</button>
             <button className={styles.spCtrlLg} onClick={onPrev}>⏮</button>
             <button className={styles.spPlayBtn}
-              style={{ background: color, boxShadow: `0 0 40px ${color}88` }}
-              onClick={onTogglePlay}>
+              style={{ background: color, boxShadow: `0 0 40px ${color}88` }} onClick={onTogglePlay}>
               {isPlaying ? '⏸' : '▶'}
             </button>
             <button className={styles.spCtrlLg} onClick={onNext}>⏭</button>
             <button className={`${styles.spCtrl} ${repeat ? styles.spCtrlOn : ''}`}
-              style={repeat ? { color } : {}} onClick={onRepeat} title="Repeat">↺</button>
+              style={repeat ? { color } : {}} onClick={onRepeat}>↺</button>
           </div>
 
-          {/* Volume */}
           <div className={styles.spVolume}>
             <span className={styles.spVolIcon}>{volume === 0 ? '🔇' : volume < 50 ? '🔉' : '🔊'}</span>
             <input type="range" min="0" max="100" value={volume} onChange={onVolume}
-              className={styles.spVolSlider}
-              style={{ '--vp': `${volume}%`, '--vc': color }} />
-          </div>
-
-          {/* Lyrics info */}
-          <div className={styles.lyricsNote}>
-            <div className={styles.lyricsNoteIcon}>♪</div>
-            <div>
-              <p className={styles.lyricsNoteTitle}>Lyrics Integration</p>
-              <p className={styles.lyricsNoteSub}>Connect <strong>Musixmatch API</strong> or <strong>Genius API</strong> for real-time lyrics sync. See README for setup.</p>
-            </div>
+              className={styles.spVolSlider} style={{ '--vp': `${volume}%`, '--vc': color }} />
           </div>
         </div>
 
-        {/* Right — Queue */}
+        {/* ── Col 2: Live Lyrics ── */}
+        <LyricsPanel song={song} progress={progress} color={color} isPlaying={isPlaying} />
+
+        {/* ── Col 3: Queue ── */}
         <div className={styles.spRight}>
           <h3 className={styles.spQueueTitle}>Up Next</h3>
           <div className={styles.spQueue}>
@@ -328,6 +454,7 @@ function SongPage({ song, isPlaying, progress, duration, volume, shuffle, repeat
             })}
           </div>
         </div>
+
       </div>
     </div>
   );
