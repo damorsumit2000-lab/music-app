@@ -2,436 +2,447 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import styles from './App.module.css';
 
-// ─── Curated playlists / featured content ───────────────────────────────────
-const FEATURED = [
-  { id: 'PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSI', title: 'Global Top 50', desc: 'Hottest tracks worldwide', color: '#ff3c3c' },
-  { id: 'PLDIoUOhQQPlXr63I_vwF06Dq1aY59NLML', title: 'Lofi Beats', desc: 'Study & chill vibes', color: '#3c8fff' },
-  { id: 'PLgzTt0k8mXzEk586ze4BjvDXR7c-TUSnx', title: 'Bollywood Hits', desc: 'Top Hindi songs 2024', color: '#ff8c00' },
-  { id: 'PLYlS9za0PMIO_jLXlt-xBRdHcb4woRSyp', title: 'Hip-Hop Essentials', desc: 'The culture, the sound', color: '#9b59b6' },
-  { id: 'PLH6pfBXQXHEC2uDmDy6PiCCEU5hkBBhJC', title: 'Tamil Trending', desc: 'Best of Kollywood now', color: '#e74c3c' },
-  { id: 'PLYXLhJO8WEEDe4Ssom3n2ovEFXTBIjP07', title: 'K-Pop Hits', desc: 'K-Pop chart toppers', color: '#2ecc71' },
+const SONGS = {
+  trending: [
+    { id: 'JGwWNGJdvx8', title: 'Shape of You', artist: 'Ed Sheeran', album: 'Divide', genre: 'Pop' },
+    { id: 'kTJczUoc26U', title: 'Señorita', artist: 'Shawn Mendes & Camila Cabello', album: 'Señorita', genre: 'Pop' },
+    { id: 'OPf0YbXqDm0', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', album: 'Uptown Special', genre: 'Pop' },
+    { id: 'nfWlot6h_JM', title: 'Shake It Off', artist: 'Taylor Swift', album: '1989', genre: 'Pop' },
+    { id: 'SlPhMPnQ58k', title: 'Levitating', artist: 'Dua Lipa', album: 'Future Nostalgia', genre: 'Pop' },
+    { id: 'ZbZSe6N_BXs', title: 'Happy', artist: 'Pharrell Williams', album: 'G I R L', genre: 'Pop' },
+    { id: 'bo_efYSyea0', title: 'Sorry', artist: 'Justin Bieber', album: 'Purpose', genre: 'Pop' },
+    { id: '09R8_2nJtjg', title: 'Sugar', artist: 'Maroon 5', album: 'V', genre: 'Pop' },
+    { id: 'nS2oNq02E48', title: 'Blinding Lights', artist: 'The Weeknd', album: 'After Hours', genre: 'R&B' },
+    { id: 'PT2_F-1esPk', title: 'Unstoppable', artist: 'Sia', album: 'This Is Acting', genre: 'Pop' },
+    { id: 'YqeW9_5kURI', title: 'Perfect', artist: 'Ed Sheeran', album: 'Divide', genre: 'Pop' },
+    { id: 'hT_nvWreIhg', title: 'Counting Stars', artist: 'OneRepublic', album: 'Native', genre: 'Pop Rock' },
+    { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello & Bastille', album: 'Happier', genre: 'Electronic' },
+    { id: 'RgKAFK5djSk', title: 'See You Again', artist: 'Wiz Khalifa ft. Charlie Puth', album: 'Furious 7', genre: 'Hip-Hop' },
+    { id: 'fHI8X4OXluQ', title: 'Astronaut In The Ocean', artist: 'Masked Wolf', album: 'Astronomical', genre: 'Hip-Hop' },
+    { id: 'CevxZvSJLk8', title: 'Roar', artist: 'Katy Perry', album: 'PRISM', genre: 'Pop' },
+    { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello ft. Bastille', album: 'Happier', genre: 'Pop' },
+    { id: '7wtfhZwyrcc', title: 'Stressed Out', artist: 'Twenty One Pilots', album: 'Blurryface', genre: 'Alternative' },
+    { id: 'OPf0YbXqDm0', title: 'Uptown Funk', artist: 'Bruno Mars', album: 'Uptown Special', genre: 'Pop' },
+    { id: 'TUVcZfQe-Kw', title: 'Closer', artist: 'The Chainsmokers ft. Halsey', album: 'Closer', genre: 'Electronic' },
+  ],
+  bollywood: [
+    { id: 'reIOoKhTHU8', title: 'Kesariya', artist: 'Arijit Singh', album: 'Brahmāstra', genre: 'Bollywood' },
+    { id: 'BddP6PYo2gs', title: 'Tum Hi Ho', artist: 'Arijit Singh', album: 'Aashiqui 2', genre: 'Bollywood' },
+    { id: 'pMsDDJqCGSY', title: 'Raataan Lambiyan', artist: 'Jubin Nautiyal', album: 'Shershaah', genre: 'Bollywood' },
+    { id: 'YVNKFaZBArM', title: 'Chaleya', artist: 'Arijit Singh & Shilpa Rao', album: 'Jawan', genre: 'Bollywood' },
+    { id: 'AHJOKyDFDHM', title: 'Bekhayali', artist: 'Sachet Tandon', album: 'Kabir Singh', genre: 'Bollywood' },
+    { id: 'lSUCqkWH_Q0', title: 'Dil Diyan Gallan', artist: 'Atif Aslam', album: 'Tiger Zinda Hai', genre: 'Bollywood' },
+    { id: '1wJP4m3rOJI', title: 'Apna Bana Le', artist: 'Arijit Singh', album: 'Bhediya', genre: 'Bollywood' },
+    { id: 'JVxkr7QPYHY', title: 'Ik Vaari Aa', artist: 'Arijit Singh', album: 'Raabta', genre: 'Bollywood' },
+    { id: 'pMF_RdCDpgI', title: 'Hawayein', artist: 'Arijit Singh', album: 'Jab Harry Met Sejal', genre: 'Bollywood' },
+    { id: 'WNIPqafd4As', title: 'Ghungroo', artist: 'Arijit Singh', album: 'War', genre: 'Bollywood' },
+    { id: 'Umqb9KENgmk', title: 'Tera Ban Jaunga', artist: 'Akhil Sachdeva', album: 'Kabir Singh', genre: 'Bollywood' },
+    { id: 'wCBzE3Cgl5Q', title: 'Shayad', artist: 'Arijit Singh', album: 'Love Aaj Kal', genre: 'Bollywood' },
+    { id: 'lp-EJB2TBlE', title: 'Dil Chahta Hai', artist: 'Shankar Mahadevan', album: 'Dil Chahta Hai', genre: 'Bollywood' },
+    { id: 'tQ5AKxjJGoI', title: 'Chaiyya Chaiyya', artist: 'Sukhwinder Singh', album: 'Dil Se', genre: 'Bollywood' },
+    { id: 'yPx3gxiYRsM', title: 'Kabhi Khushi Kabhie Gham', artist: 'Lata Mangeshkar', album: 'K3G', genre: 'Bollywood' },
+  ],
+  hiphop: [
+    { id: 'YVkUvmDQ3HY', title: 'HUMBLE.', artist: 'Kendrick Lamar', album: 'DAMN.', genre: 'Hip-Hop' },
+    { id: 'IHNzOHi8sJs', title: "God's Plan", artist: 'Drake', album: 'Scorpion', genre: 'Hip-Hop' },
+    { id: 'QjvzCTqkBDQ', title: 'Rockstar', artist: 'Post Malone ft. 21 Savage', album: 'Beerbongs & Bentleys', genre: 'Hip-Hop' },
+    { id: '6ONRf7h3Mdk', title: 'SICKO MODE', artist: 'Travis Scott', album: 'Astroworld', genre: 'Hip-Hop' },
+    { id: 'CvUa5lDXYnU', title: 'Sunflower', artist: 'Post Malone & Swae Lee', album: 'Spider-Man', genre: 'Hip-Hop' },
+    { id: '6JnGBs88sL0', title: 'Lucid Dreams', artist: 'Juice WRLD', album: 'Goodbye & Good Riddance', genre: 'Hip-Hop' },
+    { id: 'jFEGinsHWYE', title: 'XO Tour Llif3', artist: 'Lil Uzi Vert', album: 'Luv Is Rage 2', genre: 'Hip-Hop' },
+    { id: 'bpOSxM0UIJ4', title: 'Hotline Bling', artist: 'Drake', album: 'If Youre Reading This', genre: 'Hip-Hop' },
+    { id: 'ZAl1sKAbFZ0', title: 'Old Town Road', artist: 'Lil Nas X ft. Billy Ray Cyrus', album: '7', genre: 'Hip-Hop' },
+    { id: '4NRXx6U8ekM', title: 'Mask Off', artist: 'Future', album: 'Future', genre: 'Hip-Hop' },
+    { id: 'uelHwf8o7_U', title: 'Bad Guy', artist: 'Billie Eilish', album: 'When We All Fall Asleep', genre: 'Pop' },
+    { id: 'Q0oIoR9mLPs', title: 'Rap God', artist: 'Eminem', album: 'The Marshall Mathers LP2', genre: 'Hip-Hop' },
+  ],
+  tamil: [
+    { id: 'tgbNymZ7vqY', title: 'Arabic Kuthu', artist: 'Anirudh Ravichander', album: 'Beast', genre: 'Tamil' },
+    { id: 'vo6JBJ7QFBQ', title: 'Rowdy Baby', artist: 'Dhanush & Dhee', album: 'Maari 2', genre: 'Tamil' },
+    { id: 'hIPBaB3UPRA', title: 'Kaavaalaa', artist: 'Anirudh Ravichander', album: 'Jailer', genre: 'Tamil' },
+    { id: 'ZS7BSzK7HLs', title: 'Naatu Naatu', artist: 'Rahul Sipligunj', album: 'RRR', genre: 'Tamil' },
+    { id: 'P8RgTFOhMpw', title: 'Kannaana Kanney', artist: 'D. Imman', album: 'Viswasam', genre: 'Tamil' },
+    { id: 'OO7anCFdRro', title: 'Enjoy Enjaami', artist: 'Dhee ft. Arivu', album: 'Enjoy Enjaami', genre: 'Tamil' },
+    { id: 'MZmPe5FXUKY', title: 'Vaathi Coming', artist: 'Anirudh Ravichander', album: 'Master', genre: 'Tamil' },
+    { id: 'YR1BXJyFpZQ', title: 'Surviva', artist: 'Anirudh Ravichander', album: 'Vivegam', genre: 'Tamil' },
+    { id: 'LCmFY-BCZWY', title: 'Mersalaayitten', artist: 'A.R. Rahman', album: 'I', genre: 'Tamil' },
+    { id: 'ZzMFJ8WSAP4', title: 'Aalaporan Tamizhan', artist: 'A.R. Rahman', album: 'Mersal', genre: 'Tamil' },
+    { id: '8PNFKpLFDno', title: 'Chumma Kizhi', artist: 'Anirudh Ravichander', album: 'Pattas', genre: 'Tamil' },
+    { id: 'mhqSzqJumPE', title: 'Single Pasanga', artist: 'Anirudh Ravichander', album: 'Vignesh Shivan', genre: 'Tamil' },
+  ],
+  kpop: [
+    { id: 'gdZLi9oWNZg', title: 'Dynamite', artist: 'BTS', album: 'BE', genre: 'K-Pop' },
+    { id: 'XsX3ATc3FbA', title: 'Boy With Luv', artist: 'BTS ft. Halsey', album: 'Map of the Soul', genre: 'K-Pop' },
+    { id: '9bZkp7q19f0', title: 'GANGNAM STYLE', artist: 'PSY', album: 'PSY 6', genre: 'K-Pop' },
+    { id: 'MBdVXkSdhwU', title: 'Psycho', artist: 'Red Velvet', album: 'The ReVe Festival', genre: 'K-Pop' },
+    { id: 'R3vsTVJxGfQ', title: 'How You Like That', artist: 'BLACKPINK', album: 'The Album', genre: 'K-Pop' },
+    { id: 'pSudEWBAYRE', title: 'DNA', artist: 'BTS', album: 'Love Yourself', genre: 'K-Pop' },
+    { id: '7C2z4GqqS5E', title: 'Kill This Love', artist: 'BLACKPINK', album: 'Kill This Love', genre: 'K-Pop' },
+    { id: 'WPdwvef-QHs', title: 'Fake Love', artist: 'BTS', album: 'Love Yourself: Tear', genre: 'K-Pop' },
+    { id: 'mPVDGOVjRQ0', title: 'Ddu-Du Ddu-Du', artist: 'BLACKPINK', album: 'Square Up', genre: 'K-Pop' },
+    { id: 'IHNzOHi8sJs', title: 'Butter', artist: 'BTS', album: 'Butter', genre: 'K-Pop' },
+    { id: 'uNMYRgT4ous', title: 'Lovesick Girls', artist: 'BLACKPINK', album: 'The Album', genre: 'K-Pop' },
+    { id: '0-q1KafFCLU', title: 'Spring Day', artist: 'BTS', album: 'You Never Walk Alone', genre: 'K-Pop' },
+  ],
+  lofi: [
+    { id: '5qap5aO4i9A', title: 'Lofi Hip Hop Radio', artist: 'Lofi Girl', album: 'Chill Beats', genre: 'Lofi' },
+    { id: 'DWcJFNfaw9c', title: 'Study Music Alpha Waves', artist: 'YellowBrickCinema', album: 'Focus', genre: 'Lofi' },
+    { id: 'n61ULEU7CO0', title: 'Chill Lofi Study Beats', artist: 'The Bootleg Boy', album: 'Lo-Fi Beats', genre: 'Lofi' },
+    { id: 'jfKfPfyJRdk', title: 'Lofi Hip Hop Mix', artist: 'Lofi Girl', album: 'Beats to Relax', genre: 'Lofi' },
+    { id: 'Na0w3Mz46GA', title: 'Coffee Shop Lofi', artist: 'Lofi Geek', album: 'Morning Coffee', genre: 'Lofi' },
+    { id: 'lTRiuFIWV54', title: 'Late Night Lofi', artist: 'Chillhop Music', album: 'Late Night', genre: 'Lofi' },
+    { id: '4xDzrJKXOOY', title: 'Synthwave Radio', artist: 'Lofi Girl', album: 'Synthwave', genre: 'Lofi' },
+    { id: 'MDpuGEiNnh0', title: 'Rainy Day Lofi', artist: 'ChilledCow', album: 'Rain Beats', genre: 'Lofi' },
+  ],
+};
+
+const GENRES = [
+  { key: 'trending', label: 'Trending', emoji: '🔥', color: '#ff4757' },
+  { key: 'bollywood', label: 'Bollywood', emoji: '🎬', color: '#ffa502' },
+  { key: 'hiphop', label: 'Hip-Hop', emoji: '🎤', color: '#8b5cf6' },
+  { key: 'tamil', label: 'Tamil', emoji: '🌟', color: '#06b6d4' },
+  { key: 'kpop', label: 'K-Pop', emoji: '✨', color: '#ec4899' },
+  { key: 'lofi', label: 'Lofi', emoji: '🎧', color: '#10b981' },
 ];
 
-const TRENDING_VIDEOS = [
-  // Pop / International
-  { id: 'JGwWNGJdvx8', title: 'Shape of You', artist: 'Ed Sheeran', thumb: 'https://img.youtube.com/vi/JGwWNGJdvx8/mqdefault.jpg' },
-  { id: 'kTJczUoc26U', title: 'Senorita', artist: 'Shawn Mendes & Camila', thumb: 'https://img.youtube.com/vi/kTJczUoc26U/mqdefault.jpg' },
-  { id: 'RgKAFK5djSk', title: 'See You Again', artist: 'Wiz Khalifa', thumb: 'https://img.youtube.com/vi/RgKAFK5djSk/mqdefault.jpg' },
-  { id: 'OPf0YbXqDm0', title: 'Uptown Funk', artist: 'Mark Ronson ft. Bruno Mars', thumb: 'https://img.youtube.com/vi/OPf0YbXqDm0/mqdefault.jpg' },
-  { id: 'hT_nvWreIhg', title: 'Counting Stars', artist: 'OneRepublic', thumb: 'https://img.youtube.com/vi/hT_nvWreIhg/mqdefault.jpg' },
-  { id: 'YqeW9_5kURI', title: 'Perfect', artist: 'Ed Sheeran', thumb: 'https://img.youtube.com/vi/YqeW9_5kURI/mqdefault.jpg' },
-  { id: 'CevxZvSJLk8', title: 'Roar', artist: 'Katy Perry', thumb: 'https://img.youtube.com/vi/CevxZvSJLk8/mqdefault.jpg' },
-  { id: 'nfWlot6h_JM', title: 'Shake It Off', artist: 'Taylor Swift', thumb: 'https://img.youtube.com/vi/nfWlot6h_JM/mqdefault.jpg' },
-  { id: 'PT2_F-1esPk', title: 'Unstoppable', artist: 'Sia', thumb: 'https://img.youtube.com/vi/PT2_F-1esPk/mqdefault.jpg' },
-  { id: 'bo_efYSyea0', title: 'Sorry', artist: 'Justin Bieber', thumb: 'https://img.youtube.com/vi/bo_efYSyea0/mqdefault.jpg' },
-  { id: '09R8_2nJtjg', title: 'Sugar', artist: 'Maroon 5', thumb: 'https://img.youtube.com/vi/09R8_2nJtjg/mqdefault.jpg' },
-  { id: 'SlPhMPnQ58k', title: 'Levitating', artist: 'Dua Lipa', thumb: 'https://img.youtube.com/vi/SlPhMPnQ58k/mqdefault.jpg' },
-  { id: 'pRpeEdMmmQ0', title: 'Happier', artist: 'Marshmello & Bastille', thumb: 'https://img.youtube.com/vi/pRpeEdMmmQ0/mqdefault.jpg' },
-  { id: 'ZbZSe6N_BXs', title: 'Happy', artist: 'Pharrell Williams', thumb: 'https://img.youtube.com/vi/ZbZSe6N_BXs/mqdefault.jpg' },
-  { id: 'fHI8X4OXluQ', title: 'Astronaut In The Ocean', artist: 'Masked Wolf', thumb: 'https://img.youtube.com/vi/fHI8X4OXluQ/mqdefault.jpg' },
+const thumb = (id) => `https://img.youtube.com/vi/${id}/mqdefault.jpg`;
+const fmt = (s) => {
+  if (!s || isNaN(s)) return '0:00';
+  return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+};
+const getColor = (id) => {
+  const colors = ['#ff4757','#ffa502','#8b5cf6','#06b6d4','#ec4899','#10b981','#f59e0b','#3b82f6'];
+  let h = 0;
+  for (let c of id) h = c.charCodeAt(0) + ((h << 5) - h);
+  return colors[Math.abs(h) % colors.length];
+};
 
-  // Bollywood
-  { id: 'reIOoKhTHU8', title: 'Kesariya', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/reIOoKhTHU8/mqdefault.jpg' },
-  { id: 'BddP6PYo2gs', title: 'Tum Hi Ho', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/BddP6PYo2gs/mqdefault.jpg' },
-  { id: 'pMsDDJqCGSY', title: 'Raataan Lambiyan', artist: 'Jubin Nautiyal', thumb: 'https://img.youtube.com/vi/pMsDDJqCGSY/mqdefault.jpg' },
-  { id: 'YVNKFaZBArM', title: 'Chaleya', artist: 'Arijit Singh & Shilpa Rao', thumb: 'https://img.youtube.com/vi/YVNKFaZBArM/mqdefault.jpg' },
-  { id: '1wJP4m3rOJI', title: 'Apna Bana Le', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/1wJP4m3rOJI/mqdefault.jpg' },
-  { id: 'AHJOKyDFDHM', title: 'Bekhayali', artist: 'Sachet Tandon', thumb: 'https://img.youtube.com/vi/AHJOKyDFDHM/mqdefault.jpg' },
-  { id: 'JVxkr7QPYHY', title: 'Ik Vaari Aa', artist: 'Arijit Singh', thumb: 'https://img.youtube.com/vi/JVxkr7QPYHY/mqdefault.jpg' },
-  { id: 'lSUCqkWH_Q0', title: 'Dil Diyan Gallan', artist: 'Atif Aslam', thumb: 'https://img.youtube.com/vi/lSUCqkWH_Q0/mqdefault.jpg' },
-
-  // Tamil / Kollywood
-  { id: 'P8RgTFOhMpw', title: 'Kannaana Kanney', artist: 'D. Imman', thumb: 'https://img.youtube.com/vi/P8RgTFOhMpw/mqdefault.jpg' },
-  { id: 'tgbNymZ7vqY', title: 'Arabic Kuthu', artist: 'Anirudh Ravichander', thumb: 'https://img.youtube.com/vi/tgbNymZ7vqY/mqdefault.jpg' },
-  { id: 'vo6JBJ7QFBQ', title: 'Rowdy Baby', artist: 'Dhanush & Dhee', thumb: 'https://img.youtube.com/vi/vo6JBJ7QFBQ/mqdefault.jpg' },
-  { id: 'hIPBaB3UPRA', title: 'Kaavaalaa', artist: 'Anirudh Ravichander', thumb: 'https://img.youtube.com/vi/hIPBaB3UPRA/mqdefault.jpg' },
-  { id: 'ZS7BSzK7HLs', title: 'Naatu Naatu', artist: 'Rahul Sipligunj', thumb: 'https://img.youtube.com/vi/ZS7BSzK7HLs/mqdefault.jpg' },
-
-  // Hip-Hop
-  { id: 'YVkUvmDQ3HY', title: 'HUMBLE.', artist: 'Kendrick Lamar', thumb: 'https://img.youtube.com/vi/YVkUvmDQ3HY/mqdefault.jpg' },
-  { id: 'IHNzOHi8sJs', title: 'God's Plan', artist: 'Drake', thumb: 'https://img.youtube.com/vi/IHNzOHi8sJs/mqdefault.jpg' },
-  { id: 'QjvzCTqkBDQ', title: 'Rockstar', artist: 'Post Malone', thumb: 'https://img.youtube.com/vi/QjvzCTqkBDQ/mqdefault.jpg' },
-  { id: '6ONRf7h3Mdk', title: 'SICKO MODE', artist: 'Travis Scott', thumb: 'https://img.youtube.com/vi/6ONRf7h3Mdk/mqdefault.jpg' },
-  { id: 'nS2oNq02E48', title: 'Blinding Lights', artist: 'The Weeknd', thumb: 'https://img.youtube.com/vi/nS2oNq02E48/mqdefault.jpg' },
-
-  // K-Pop
-  { id: 'gdZLi9oWNZg', title: 'Dynamite', artist: 'BTS', thumb: 'https://img.youtube.com/vi/gdZLi9oWNZg/mqdefault.jpg' },
-  { id: 'MBdVXkSdhwU', title: 'Psycho', artist: 'Red Velvet', thumb: 'https://img.youtube.com/vi/MBdVXkSdhwU/mqdefault.jpg' },
-  { id: '9bZkp7q19f0', title: 'GANGNAM STYLE', artist: 'PSY', thumb: 'https://img.youtube.com/vi/9bZkp7q19f0/mqdefault.jpg' },
-  { id: 'XsX3ATc3FbA', title: 'Boy With Luv', artist: 'BTS ft. Halsey', thumb: 'https://img.youtube.com/vi/XsX3ATc3FbA/mqdefault.jpg' },
-
-  // Lofi / Chill
-  { id: '5qap5aO4i9A', title: 'Lofi Hip Hop Radio', artist: 'ChilledCow', thumb: 'https://img.youtube.com/vi/5qap5aO4i9A/mqdefault.jpg' },
-  { id: 'DWcJFNfaw9c', title: 'Study Music Alpha Waves', artist: 'YellowBrickCinema', thumb: 'https://img.youtube.com/vi/DWcJFNfaw9c/mqdefault.jpg' },
-];
-
-// ─── YouTube Player Hook ─────────────────────────────────────────────────────
-function useYouTubePlayer(onStateChange, onReady) {
-  const playerRef = useRef(null);
-  const containerRef = useRef(null);
+function useYTPlayer(onState) {
+  const ref = useRef(null);
   const [ready, setReady] = useState(false);
-
   useEffect(() => {
+    if (window.YT?.Player) { init(); return; }
     const tag = document.createElement('script');
     tag.src = 'https://www.youtube.com/iframe_api';
-    const firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    window.onYouTubeIframeAPIReady = () => {
-      playerRef.current = new window.YT.Player('yt-player', {
-        height: '1',
-        width: '1',
-        playerVars: { autoplay: 0, controls: 0, rel: 0, modestbranding: 1 },
-        events: {
-          onReady: () => { setReady(true); if (onReady) onReady(playerRef.current); },
-          onStateChange: (e) => { if (onStateChange) onStateChange(e.data); },
-        },
-      });
-    };
+    document.head.appendChild(tag);
+    window.onYouTubeIframeAPIReady = init;
     return () => { window.onYouTubeIframeAPIReady = null; };
   }, []);
-
-  return { player: playerRef, ready };
+  function init() {
+    ref.current = new window.YT.Player('yt-hidden', {
+      height: '1', width: '1',
+      playerVars: { autoplay: 0, controls: 0, rel: 0, fs: 0, modestbranding: 1, iv_load_policy: 3 },
+      events: {
+        onReady: () => setReady(true),
+        onStateChange: (e) => onState?.(e.data),
+      },
+    });
+  }
+  return { ref, ready };
 }
 
-// ─── Search Results Item ─────────────────────────────────────────────────────
-function SearchResult({ item, onPlay, isActive }) {
-  if (!item || item.id?.kind === 'youtube#channel') return null;
-  const vid = item.id?.videoId || item.id;
-  const title = item.snippet?.title || item.title || 'Unknown';
-  const channel = item.snippet?.channelTitle || item.artist || '';
-  const thumb = item.snippet?.thumbnails?.medium?.url || item.thumb || `https://img.youtube.com/vi/${vid}/mqdefault.jpg`;
-
+function EQ({ active, color = '#ff4757' }) {
   return (
-    <div className={`${styles.searchResult} ${isActive ? styles.active : ''}`} onClick={() => onPlay({ id: vid, title, artist: channel, thumb })}>
-      <img src={thumb} alt={title} className={styles.resultThumb} />
-      <div className={styles.resultInfo}>
-        <span className={styles.resultTitle}>{title}</span>
-        <span className={styles.resultArtist}>{channel}</span>
+    <div className={styles.eq} style={{ '--eq-color': color }}>
+      {[0,1,2,3].map(i => (
+        <span key={i} className={`${styles.eqBar} ${active ? styles.eqActive : ''}`}
+          style={{ animationDelay: `${i * 0.12}s` }} />
+      ))}
+    </div>
+  );
+}
+
+function SongCard({ song, isActive, isPlaying, onPlay, onLike, liked }) {
+  const color = getColor(song.id);
+  return (
+    <div className={`${styles.songCard} ${isActive ? styles.songCardActive : ''}`}
+      style={{ '--card-color': color }}>
+      <div className={styles.cardThumb} onClick={() => onPlay(song)}>
+        <img src={thumb(song.id)} alt={song.title} className={styles.cardThumbImg} />
+        <div className={styles.cardOverlay}>
+          {isActive && isPlaying ? <EQ active color="#fff" /> : <span className={styles.cardPlay}>▶</span>}
+        </div>
+        {isActive && <div className={styles.cardGlow} style={{ background: color }} />}
       </div>
-      <button className={styles.playBtn}>▶</button>
+      <div className={styles.cardBody}>
+        <div className={styles.cardTitleRow}>
+          <span className={styles.cardTitle} style={isActive ? { color } : {}}>{song.title}</span>
+          <button className={`${styles.cardHeart} ${liked ? styles.cardHeartOn : ''}`}
+            style={liked ? { color } : {}} onClick={() => onLike(song)}>
+            {liked ? '♥' : '♡'}
+          </button>
+        </div>
+        <span className={styles.cardArtist}>{song.artist}</span>
+        <span className={styles.cardGenre}>{song.genre}</span>
+      </div>
     </div>
   );
 }
 
-// ─── Mini Equalizer Animation ────────────────────────────────────────────────
-function Equalizer({ playing }) {
+function SongRow({ song, index, isActive, isPlaying, onPlay, onLike, liked }) {
+  const color = getColor(song.id);
   return (
-    <div className={`${styles.eq} ${playing ? styles.eqPlaying : ''}`}>
-      {[1,2,3,4].map(i => <span key={i} className={styles.eqBar} style={{ animationDelay: `${i * 0.1}s` }} />)}
+    <div className={`${styles.songRow} ${isActive ? styles.songRowActive : ''}`}
+      onClick={() => onPlay(song)} style={isActive ? { '--row-color': color } : {}}>
+      <div className={styles.rowNum}>
+        {isActive ? <EQ active={isPlaying} color={color} /> : <span className={styles.rowNumText}>{index + 1}</span>}
+      </div>
+      <img src={thumb(song.id)} alt={song.title} className={styles.rowThumb} />
+      <div className={styles.rowInfo}>
+        <span className={styles.rowTitle} style={isActive ? { color } : {}}>{song.title}</span>
+        <span className={styles.rowArtist}>{song.artist}</span>
+      </div>
+      <span className={styles.rowGenre}>{song.genre}</span>
+      <button className={`${styles.rowHeart} ${liked ? styles.rowHeartOn : ''}`}
+        style={liked ? { color } : {}}
+        onClick={e => { e.stopPropagation(); onLike(song); }}>
+        {liked ? '♥' : '♡'}
+      </button>
     </div>
   );
 }
 
-// ─── Main App ────────────────────────────────────────────────────────────────
 export default function App() {
-  const [view, setView] = useState('home'); // home | search | playlist | library
+  const [theme, setTheme] = useState('dark');
+  const [view, setView] = useState('home');
+  const [genre, setGenre] = useState('trending');
   const [query, setQuery] = useState('');
   const [results, setResults] = useState([]);
-  const [searching, setSearching] = useState(false);
-  const [currentTrack, setCurrentTrack] = useState(null);
+  const [current, setCurrent] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(80);
   const [progress, setProgress] = useState(0);
   const [duration, setDuration] = useState(0);
   const [queue, setQueue] = useState([]);
-  const [queueIdx, setQueueIdx] = useState(0);
-  const [library, setLibrary] = useState([]);
+  const [qIdx, setQIdx] = useState(0);
   const [liked, setLiked] = useState([]);
   const [shuffle, setShuffle] = useState(false);
   const [repeat, setRepeat] = useState(false);
-  const [activePlaylist, setActivePlaylist] = useState(null);
-  const [playerExpanded, setPlayerExpanded] = useState(false);
-  const progressInterval = useRef(null);
-  const apiKey = 'AIzaSyDYNO8ER1AgIbhQtzRhVoVKOC1U1SQfME8'; // demo key - replace with your own
+  const tick = useRef(null);
+  const apiKey = 'AIzaSyDYNO8ER1AgIbhQtzRhVoVKOC1U1SQfME8';
 
-  const handleStateChange = useCallback((state) => {
-    if (state === 1) { // playing
+  const handleState = useCallback((state) => {
+    if (state === 1) {
       setIsPlaying(true);
-      progressInterval.current = setInterval(() => {
-        if (playerRef.current?.getCurrentTime) {
-          setProgress(playerRef.current.getCurrentTime());
-          setDuration(playerRef.current.getDuration() || 0);
-        }
+      clearInterval(tick.current);
+      tick.current = setInterval(() => {
+        setProgress(ytRef.current?.getCurrentTime?.() || 0);
+        setDuration(ytRef.current?.getDuration?.() || 0);
       }, 500);
-    } else if (state === 2) { // paused
+    } else if (state === 2) {
       setIsPlaying(false);
-      clearInterval(progressInterval.current);
-    } else if (state === 0) { // ended
-      clearInterval(progressInterval.current);
-      handleNext();
+      clearInterval(tick.current);
+    } else if (state === 0) {
+      clearInterval(tick.current);
+      goNext();
     }
   }, []);
 
-  const { player: playerRef, ready } = useYouTubePlayer(handleStateChange);
+  const { ref: ytRef, ready } = useYTPlayer(handleState);
 
-  const playTrack = useCallback((track) => {
-    setCurrentTrack(track);
+  const play = useCallback((song, q, idx) => {
+    setCurrent(song);
     setProgress(0);
-    if (ready && playerRef.current?.loadVideoById) {
-      playerRef.current.loadVideoById(track.id);
-      playerRef.current.setVolume(volume);
+    if (q !== undefined) { setQueue(q); setQIdx(idx ?? 0); }
+    if (ready && ytRef.current?.loadVideoById) {
+      ytRef.current.loadVideoById(song.id);
+      ytRef.current.setVolume(volume);
     }
-    // Add to library history
-    setLibrary(prev => {
-      const filtered = prev.filter(t => t.id !== track.id);
-      return [track, ...filtered].slice(0, 50);
-    });
   }, [ready, volume]);
 
-  const playFromQueue = useCallback((tracks, index = 0) => {
-    setQueue(tracks);
-    setQueueIdx(index);
-    playTrack(tracks[index]);
-  }, [playTrack]);
+  const goNext = useCallback(() => {
+    if (!queue.length) return;
+    const next = shuffle ? Math.floor(Math.random() * queue.length) : (qIdx + 1) % queue.length;
+    setQIdx(next);
+    play(queue[next]);
+  }, [queue, qIdx, shuffle, play]);
 
-  const handleNext = useCallback(() => {
-    if (queue.length === 0) return;
-    let nextIdx;
-    if (shuffle) {
-      nextIdx = Math.floor(Math.random() * queue.length);
-    } else {
-      nextIdx = (queueIdx + 1) % queue.length;
-    }
-    if (repeat && nextIdx === 0 && !shuffle) {
-      playerRef.current?.seekTo(0);
-      playerRef.current?.playVideo();
-      return;
-    }
-    setQueueIdx(nextIdx);
-    playTrack(queue[nextIdx]);
-  }, [queue, queueIdx, shuffle, repeat, playTrack]);
-
-  const handlePrev = useCallback(() => {
-    if (progress > 3) { playerRef.current?.seekTo(0); return; }
-    const prevIdx = Math.max(0, queueIdx - 1);
-    setQueueIdx(prevIdx);
-    if (queue[prevIdx]) playTrack(queue[prevIdx]);
-  }, [queue, queueIdx, progress, playTrack]);
+  const goPrev = useCallback(() => {
+    if (progress > 3) { ytRef.current?.seekTo(0); return; }
+    const prev = Math.max(0, qIdx - 1);
+    setQIdx(prev);
+    if (queue[prev]) play(queue[prev]);
+  }, [queue, qIdx, progress, play]);
 
   const togglePlay = () => {
-    if (!currentTrack) return;
-    if (isPlaying) playerRef.current?.pauseVideo();
-    else playerRef.current?.playVideo();
+    if (!current) return;
+    isPlaying ? ytRef.current?.pauseVideo() : ytRef.current?.playVideo();
   };
 
   const seek = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
+    const pct = (e.clientX - e.currentTarget.getBoundingClientRect().left) / e.currentTarget.offsetWidth;
     const t = pct * duration;
-    playerRef.current?.seekTo(t);
+    ytRef.current?.seekTo(t);
     setProgress(t);
   };
 
-  const handleVolume = (e) => {
-    const v = Number(e.target.value);
-    setVolume(v);
-    playerRef.current?.setVolume(v);
+  const toggleLike = (song) => {
+    setLiked(prev => prev.find(s => s.id === song.id) ? prev.filter(s => s.id !== song.id) : [song, ...prev]);
   };
 
-  // Search using YouTube Data API
-  const search = async (q) => {
+  const isLiked = (id) => liked.some(s => s.id === id);
+
+  const doSearch = async (q) => {
     if (!q.trim()) return;
-    setSearching(true);
     setView('search');
     try {
-      const res = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q + ' music')}&type=video&videoCategoryId=10&maxResults=20&key=${apiKey}`
-      );
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(q + ' song audio')}&type=video&videoCategoryId=10&maxResults=30&key=${apiKey}`);
       const data = await res.json();
-      if (data.items) {
-        setResults(data.items);
-        setQueue(data.items.map(i => ({
+      if (data.items?.length) {
+        setResults(data.items.filter(i => i.id?.videoId).map(i => ({
           id: i.id.videoId,
-          title: i.snippet.title,
-          artist: i.snippet.channelTitle,
-          thumb: i.snippet.thumbnails.medium.url,
+          title: i.snippet.title.replace(/\(Official.*?\)/gi,'').replace(/\[.*?\]/gi,'').trim(),
+          artist: i.snippet.channelTitle.replace(' - Topic','').replace('VEVO','').trim(),
+          album: '', genre: 'Search',
         })));
       } else {
-        // Fallback: use trending if API key not valid
-        setResults(TRENDING_VIDEOS);
-        setQueue(TRENDING_VIDEOS);
+        const all = Object.values(SONGS).flat();
+        setResults(all.filter(s => s.title.toLowerCase().includes(q.toLowerCase()) || s.artist.toLowerCase().includes(q.toLowerCase())));
       }
     } catch {
-      setResults(TRENDING_VIDEOS);
-      setQueue(TRENDING_VIDEOS);
+      const all = Object.values(SONGS).flat();
+      setResults(all.filter(s => s.title.toLowerCase().includes(q.toLowerCase()) || s.artist.toLowerCase().includes(q.toLowerCase())));
     }
-    setSearching(false);
   };
 
-  const toggleLike = (track) => {
-    setLiked(prev => {
-      const exists = prev.find(t => t.id === track.id);
-      if (exists) return prev.filter(t => t.id !== track.id);
-      return [track, ...prev];
-    });
-  };
-
-  const isLiked = currentTrack && liked.find(t => t.id === currentTrack.id);
-
-  const fmt = (s) => {
-    if (!s || isNaN(s)) return '0:00';
-    const m = Math.floor(s / 60);
-    const sec = Math.floor(s % 60);
-    return `${m}:${sec.toString().padStart(2, '0')}`;
-  };
-
-  const loadFeaturedPlaylist = (playlist) => {
-    setActivePlaylist(playlist);
-    setView('playlist');
-  };
+  const curColor = current ? getColor(current.id) : '#ff4757';
+  const curGenre = GENRES.find(g => g.key === genre);
+  const displaySongs = view === 'search' ? results : view === 'liked' ? liked : SONGS[genre] || [];
 
   return (
-    <div className={styles.root}>
-      {/* Hidden YT player */}
-      <div id="yt-player" style={{ position: 'fixed', opacity: 0, pointerEvents: 'none', width: 1, height: 1 }} />
+    <div className={`${styles.root} ${styles[theme]}`}>
+      <div id="yt-hidden" style={{ position:'fixed', width:1, height:1, opacity:0, pointerEvents:'none' }} />
 
-      {/* ── Sidebar ── */}
+      {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div className={styles.logo}>
-          <span className={`${styles.logoMark} syne`}>R</span>
-          <span className={`${styles.logoText} syne`}>Rhythmix</span>
+          <div className={styles.logoIcon} style={{ background: curColor }}>♫</div>
+          <span className={styles.logoText}>Rhythmix</span>
         </div>
-
         <nav className={styles.nav}>
-          {[
-            { id: 'home', icon: '⌂', label: 'Home' },
-            { id: 'search', icon: '⌕', label: 'Search' },
-            { id: 'library', icon: '♪', label: 'Library' },
-          ].map(item => (
-            <button key={item.id} className={`${styles.navItem} ${view === item.id ? styles.navActive : ''}`}
-              onClick={() => setView(item.id)}>
-              <span className={styles.navIcon}>{item.icon}</span>
-              <span>{item.label}</span>
+          {[{v:'home',i:'⌂',l:'Discover'},{v:'search',i:'⌕',l:'Search'},{v:'liked',i:'♥',l:'Liked'}].map(n => (
+            <button key={n.v} className={`${styles.navBtn} ${view===n.v?styles.navBtnActive:''}`}
+              style={view===n.v?{'--nb':curColor}:{}} onClick={()=>setView(n.v)}>
+              <span className={styles.navIcon}>{n.i}</span><span>{n.l}</span>
             </button>
           ))}
         </nav>
-
-        <div className={styles.sideSection}>
-          <p className={`${styles.sideLabel} syne`}>Liked Songs</p>
-          {liked.length === 0 ? (
-            <p className={styles.empty}>No liked songs yet</p>
-          ) : (
-            <div className={styles.likedList}>
-              {liked.slice(0, 5).map(t => (
-                <div key={t.id} className={styles.sideTrack} onClick={() => playFromQueue(liked, liked.indexOf(t))}>
-                  <img src={t.thumb} alt={t.title} className={styles.sideThumb} />
-                  <span className={styles.sideTrackTitle}>{t.title}</span>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-
-        <div className={styles.sideSection}>
-          <p className={`${styles.sideLabel} syne`}>Recent</p>
-          {library.slice(0, 5).map(t => (
-            <div key={t.id + Math.random()} className={styles.sideTrack} onClick={() => playTrack(t)}>
-              <img src={t.thumb} alt={t.title} className={styles.sideThumb} />
-              <span className={styles.sideTrackTitle}>{t.title}</span>
-            </div>
+        <div className={styles.genreList}>
+          <p className={styles.genreListLabel}>Genres</p>
+          {GENRES.map(g => (
+            <button key={g.key}
+              className={`${styles.genreBtn} ${genre===g.key&&view==='home'?styles.genreBtnActive:''}`}
+              style={genre===g.key&&view==='home'?{'--gb':g.color}:{}}
+              onClick={()=>{setGenre(g.key);setView('home');}}>
+              <span>{g.emoji}</span><span>{g.label}</span>
+              <span className={styles.genreCount}>{SONGS[g.key]?.length}</span>
+            </button>
           ))}
         </div>
+        {liked.length > 0 && (
+          <div className={styles.sideRecent}>
+            <p className={styles.sideRecentLabel}>Recently Liked</p>
+            {liked.slice(0,4).map(s=>(
+              <div key={s.id} className={styles.sideItem} onClick={()=>play(s,liked,liked.indexOf(s))}>
+                <img src={thumb(s.id)} alt={s.title} className={styles.sideItemThumb}/>
+                <div className={styles.sideItemInfo}>
+                  <span className={styles.sideItemTitle}>{s.title}</span>
+                  <span className={styles.sideItemArtist}>{s.artist}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </aside>
 
-      {/* ── Main Content ── */}
-      <main className={styles.main}>
-        {/* Top Bar */}
+      {/* Main */}
+      <div className={styles.main}>
+        {/* Topbar */}
         <header className={styles.topbar}>
-          <form onSubmit={(e) => { e.preventDefault(); search(query); }} className={styles.searchForm}>
+          <form className={styles.searchBar} onSubmit={e=>{e.preventDefault();doSearch(query);}}>
             <span className={styles.searchIcon}>⌕</span>
-            <input
-              className={styles.searchInput}
-              placeholder="Search songs, artists, albums…"
-              value={query}
-              onChange={e => setQuery(e.target.value)}
-              onFocus={() => { if (results.length > 0) setView('search'); }}
-            />
-            {query && <button type="button" className={styles.clearBtn} onClick={() => { setQuery(''); setResults([]); setView('home'); }}>✕</button>}
+            <input className={styles.searchInput} placeholder="Search any song or artist…"
+              value={query} onChange={e=>setQuery(e.target.value)} />
+            {query && <button type="button" className={styles.searchClear} onClick={()=>{setQuery('');setView('home');}}>✕</button>}
           </form>
+          <button className={styles.themeBtn} onClick={()=>setTheme(t=>t==='dark'?'light':'dark')}>
+            {theme==='dark'?'☀':'☾'}
+          </button>
         </header>
 
-        {/* Content Area */}
         <div className={styles.content}>
 
-          {/* HOME VIEW */}
-          {view === 'home' && (
+          {/* HOME */}
+          {view==='home' && (
             <div className={styles.homeView}>
-              <section className={styles.section}>
-                <h2 className={`${styles.sectionTitle} syne`}>Featured Playlists</h2>
-                <div className={styles.featuredGrid}>
-                  {FEATURED.map(pl => (
-                    <div key={pl.id} className={styles.featuredCard} style={{ '--card-color': pl.color }}
-                      onClick={() => loadFeaturedPlaylist(pl)}>
-                      <div className={styles.featuredGlow} />
-                      <span className={styles.featuredEmoji}>♫</span>
-                      <div>
-                        <p className={`${styles.featuredTitle} syne`}>{pl.title}</p>
-                        <p className={styles.featuredDesc}>{pl.desc}</p>
-                      </div>
-                    </div>
-                  ))}
+              <div className={styles.hero} style={{'--hc':curGenre?.color||'#ff4757'}}>
+                <div className={styles.heroGlow}/>
+                <div className={styles.heroText}>
+                  <p className={styles.heroLabel}>{curGenre?.emoji} {curGenre?.label}</p>
+                  <h1 className={styles.heroTitle}>
+                    {genre==='trending'?'Hot Right Now':genre==='bollywood'?'Bollywood Beats':
+                     genre==='hiphop'?'Hip-Hop Essentials':genre==='tamil'?'Tamil Chartbusters':
+                     genre==='kpop'?'K-Pop Universe':'Lofi Chill Zone'}
+                  </h1>
+                  <p className={styles.heroMeta}>{SONGS[genre]?.length} songs</p>
+                  <button className={styles.heroPlay} style={{background:curGenre?.color}}
+                    onClick={()=>{const s=SONGS[genre];play(s[0],s,0);}}>▶ Play All</button>
                 </div>
-              </section>
+              </div>
 
-              <section className={styles.section}>
-                <h2 className={`${styles.sectionTitle} syne`}>Trending Now</h2>
-                <div className={styles.trendingGrid}>
-                  {TRENDING_VIDEOS.map((v, i) => (
-                    <div key={v.id} className={styles.trendingCard}
-                      onClick={() => { playFromQueue(TRENDING_VIDEOS, i); }}>
-                      <div className={styles.trendingThumbWrap}>
-                        <img src={v.thumb} alt={v.title} className={styles.trendingThumb} />
-                        <div className={styles.trendingOverlay}>
-                          {currentTrack?.id === v.id ? <Equalizer playing={isPlaying} /> : <span className={styles.playOverlay}>▶</span>}
-                        </div>
-                      </div>
-                      <p className={styles.trendingTitle}>{v.title}</p>
-                      <p className={styles.trendingArtist}>{v.artist}</p>
-                    </div>
-                  ))}
+              <div className={styles.pills}>
+                {GENRES.map(g=>(
+                  <button key={g.key}
+                    className={`${styles.pill} ${genre===g.key?styles.pillActive:''}`}
+                    style={genre===g.key?{background:g.color,borderColor:g.color,color:'#fff'}:{}}
+                    onClick={()=>setGenre(g.key)}>
+                    {g.emoji} {g.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className={styles.cardGrid}>
+                {SONGS[genre]?.map((s,i)=>(
+                  <SongCard key={s.id} song={s} isActive={current?.id===s.id} isPlaying={isPlaying}
+                    onPlay={song=>play(song,SONGS[genre],i)} onLike={toggleLike} liked={isLiked(s.id)}/>
+                ))}
+              </div>
+
+              <div className={styles.listSection}>
+                <h2 className={styles.listTitle}>Full List</h2>
+                <div className={styles.listHeader}>
+                  <span>#</span><span>Song</span><span>Genre</span><span></span>
                 </div>
-              </section>
+                {SONGS[genre]?.map((s,i)=>(
+                  <SongRow key={s.id+i} song={s} index={i} isActive={current?.id===s.id}
+                    isPlaying={isPlaying} onPlay={song=>play(song,SONGS[genre],i)}
+                    onLike={toggleLike} liked={isLiked(s.id)}/>
+                ))}
+              </div>
             </div>
           )}
 
-          {/* SEARCH VIEW */}
-          {view === 'search' && (
+          {/* SEARCH */}
+          {view==='search' && (
             <div className={styles.searchView}>
-              {searching ? (
-                <div className={styles.loading}>
-                  <div className={styles.spinner} />
-                  <p>Searching…</p>
-                </div>
-              ) : results.length > 0 ? (
+              {results.length>0 ? (
                 <>
-                  <h2 className={`${styles.sectionTitle} syne`}>Results for "{query}"</h2>
-                  <div className={styles.resultsList}>
-                    {results.map((item, i) => (
-                      <SearchResult key={i} item={item}
-                        isActive={currentTrack?.id === (item.id?.videoId || item.id)}
-                        onPlay={(track) => {
-                          playFromQueue(
-                            results.map(r => ({
-                              id: r.id?.videoId || r.id,
-                              title: r.snippet?.title || r.title,
-                              artist: r.snippet?.channelTitle || r.artist,
-                              thumb: r.snippet?.thumbnails?.medium?.url || r.thumb,
-                            })),
-                            i
-                          );
-                        }}
-                      />
+                  <h2 className={styles.listTitle}>Results for "{query}"</h2>
+                  <div className={styles.cardGrid}>
+                    {results.map((s,i)=>(
+                      <SongCard key={s.id} song={s} isActive={current?.id===s.id} isPlaying={isPlaying}
+                        onPlay={song=>play(song,results,i)} onLike={toggleLike} liked={isLiked(s.id)}/>
                     ))}
                   </div>
                 </>
               ) : (
-                <div className={styles.searchPrompt}>
-                  <p className={`${styles.searchPromptTitle} syne`}>Find your sound</p>
-                  <p className={styles.searchPromptSub}>Search for any song, artist, or album</p>
-                  <div className={styles.tags}>
-                    {['Bollywood', 'Hip-Hop', 'Lofi', 'Pop', 'Tamil', 'K-Pop', 'Rock', 'Jazz'].map(t => (
-                      <button key={t} className={styles.tag} onClick={() => { setQuery(t); search(t); }}>{t}</button>
+                <div className={styles.empty}>
+                  <span className={styles.emptyIcon}>⌕</span>
+                  <h2 className={styles.emptyTitle}>Find your sound</h2>
+                  <p className={styles.emptySub}>Search any song, artist, or album</p>
+                  <div className={styles.tagCloud}>
+                    {['Arijit Singh','Drake','BTS','Anirudh','Taylor Swift','The Weeknd','Dua Lipa','Eminem','AR Rahman','Atif Aslam'].map(t=>(
+                      <button key={t} className={styles.tag} onClick={()=>{setQuery(t);doSearch(t);}}>{t}</button>
                     ))}
                   </div>
                 </div>
@@ -439,133 +450,90 @@ export default function App() {
             </div>
           )}
 
-          {/* PLAYLIST VIEW */}
-          {view === 'playlist' && activePlaylist && (
-            <div className={styles.playlistView}>
-              <div className={styles.playlistHero} style={{ '--pl-color': activePlaylist.color }}>
-                <div className={styles.playlistHeroGlow} />
-                <span className={styles.playlistIcon}>♫</span>
+          {/* LIKED */}
+          {view==='liked' && (
+            <div className={styles.likedView}>
+              <div className={styles.likedHero} style={{'--lc':curColor}}>
+                <div className={styles.likedGlow}/>
+                <span className={styles.likedIcon}>♥</span>
                 <div>
-                  <p className={styles.playlistType}>PLAYLIST</p>
-                  <h1 className={`${styles.playlistName} syne`}>{activePlaylist.title}</h1>
-                  <p className={styles.playlistDesc}>{activePlaylist.desc}</p>
+                  <h1 className={styles.likedTitle}>Liked Songs</h1>
+                  <p className={styles.likedMeta}>{liked.length} songs</p>
+                  {liked.length>0&&<button className={styles.likedPlay} style={{background:curColor}}
+                    onClick={()=>play(liked[0],liked,0)}>▶ Play All</button>}
                 </div>
               </div>
-              <div className={styles.playlistEmbed}>
-                <iframe
-                  src={`https://www.youtube.com/embed/videoseries?list=${activePlaylist.id}&autoplay=0&rel=0`}
-                  width="100%"
-                  height="400"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  style={{ border: 'none', borderRadius: 12 }}
-                />
-                <p className={styles.playlistNote}>▲ Browse and play any track in this playlist. Use the player below for full controls.</p>
-              </div>
-            </div>
-          )}
-
-          {/* LIBRARY VIEW */}
-          {view === 'library' && (
-            <div className={styles.libraryView}>
-              <h2 className={`${styles.sectionTitle} syne`}>Your Library</h2>
-
-              {liked.length > 0 && (
-                <div className={styles.librarySection}>
-                  <h3 className={`${styles.librarySectionTitle} syne`}>❤ Liked Songs ({liked.length})</h3>
-                  {liked.map((t, i) => (
-                    <div key={t.id} className={`${styles.libraryTrack} ${currentTrack?.id === t.id ? styles.activeTrack : ''}`}
-                      onClick={() => playFromQueue(liked, i)}>
-                      <span className={styles.trackNum}>{i + 1}</span>
-                      <img src={t.thumb} alt={t.title} className={styles.libraryThumb} />
-                      <div className={styles.libraryTrackInfo}>
-                        <span className={styles.libraryTrackTitle}>{t.title}</span>
-                        <span className={styles.libraryTrackArtist}>{t.artist}</span>
-                      </div>
-                      {currentTrack?.id === t.id && <Equalizer playing={isPlaying} />}
-                    </div>
-                  ))}
+              {liked.length===0 ? (
+                <div className={styles.empty}>
+                  <span className={styles.emptyIcon}>♡</span>
+                  <h2 className={styles.emptyTitle}>No liked songs yet</h2>
+                  <p className={styles.emptySub}>Tap ♡ on any song to save it here</p>
+                  <button className={styles.emptyBtn} onClick={()=>setView('home')}>Browse Music</button>
                 </div>
-              )}
-
-              {library.length > 0 && (
-                <div className={styles.librarySection}>
-                  <h3 className={`${styles.librarySectionTitle} syne`}>Recently Played ({library.length})</h3>
-                  {library.map((t, i) => (
-                    <div key={t.id + i} className={`${styles.libraryTrack} ${currentTrack?.id === t.id ? styles.activeTrack : ''}`}
-                      onClick={() => playTrack(t)}>
-                      <span className={styles.trackNum}>{i + 1}</span>
-                      <img src={t.thumb} alt={t.title} className={styles.libraryThumb} />
-                      <div className={styles.libraryTrackInfo}>
-                        <span className={styles.libraryTrackTitle}>{t.title}</span>
-                        <span className={styles.libraryTrackArtist}>{t.artist}</span>
-                      </div>
-                      {currentTrack?.id === t.id && <Equalizer playing={isPlaying} />}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {liked.length === 0 && library.length === 0 && (
-                <div className={styles.emptyLibrary}>
-                  <p className={`${styles.emptyTitle} syne`}>Your library is empty</p>
-                  <p className={styles.emptySub}>Play songs to build your history, like tracks to save them here.</p>
-                  <button className={styles.exploreBtn} onClick={() => setView('home')}>Explore Music</button>
-                </div>
-              )}
+              ) : liked.map((s,i)=>(
+                <SongRow key={s.id} song={s} index={i} isActive={current?.id===s.id}
+                  isPlaying={isPlaying} onPlay={song=>play(song,liked,i)}
+                  onLike={toggleLike} liked/>
+              ))}
             </div>
           )}
         </div>
-      </main>
+      </div>
 
-      {/* ── Player Bar ── */}
-      <footer className={`${styles.player} ${playerExpanded ? styles.playerExpanded : ''}`}>
-        {currentTrack ? (
+      {/* Player */}
+      <footer className={styles.player} style={{'--pc':curColor}}>
+        <div className={styles.playerGlow} style={{background:`linear-gradient(90deg,${curColor}22,transparent)`}}/>
+        {current ? (
           <>
-            {/* Track Info */}
-            <div className={styles.playerTrack} onClick={() => setPlayerExpanded(v => !v)}>
-              <img src={currentTrack.thumb} alt={currentTrack.title} className={styles.playerThumb} />
-              <div className={styles.playerTrackInfo}>
-                <span className={styles.playerTitle}>{currentTrack.title}</span>
-                <span className={styles.playerArtist}>{currentTrack.artist}</span>
+            <div className={styles.pTrack}>
+              <div className={styles.pArt} style={{boxShadow:`0 0 24px ${curColor}55`}}>
+                <img src={thumb(current.id)} alt={current.title} className={styles.pArtImg}/>
+                {isPlaying&&<div className={styles.pArtRing} style={{borderColor:curColor}}/>}
               </div>
-              <button className={`${styles.likeBtn} ${isLiked ? styles.liked : ''}`}
-                onClick={(e) => { e.stopPropagation(); toggleLike(currentTrack); }}>
-                {isLiked ? '❤' : '♡'}
+              <div className={styles.pInfo}>
+                <span className={styles.pTitle}>{current.title}</span>
+                <span className={styles.pArtist}>{current.artist}</span>
+              </div>
+              <button className={`${styles.pHeart} ${isLiked(current.id)?styles.pHeartOn:''}`}
+                style={isLiked(current.id)?{color:curColor}:{}} onClick={()=>toggleLike(current)}>
+                {isLiked(current.id)?'♥':'♡'}
               </button>
             </div>
 
-            {/* Controls + Progress */}
-            <div className={styles.playerCenter}>
-              <div className={styles.controls}>
-                <button className={`${styles.ctrl} ${shuffle ? styles.ctrlActive : ''}`} onClick={() => setShuffle(v => !v)} title="Shuffle">⇄</button>
-                <button className={styles.ctrl} onClick={handlePrev}>⏮</button>
-                <button className={styles.playPause} onClick={togglePlay}>
-                  {isPlaying ? '⏸' : '▶'}
+            <div className={styles.pCenter}>
+              <div className={styles.pBtns}>
+                <button className={`${styles.pCtrl} ${shuffle?styles.pCtrlOn:''}`}
+                  style={shuffle?{color:curColor}:{}} onClick={()=>setShuffle(v=>!v)}>⇄</button>
+                <button className={styles.pCtrl} onClick={goPrev}>⏮</button>
+                <button className={styles.pPlay}
+                  style={{background:curColor,boxShadow:`0 0 24px ${curColor}77`}} onClick={togglePlay}>
+                  {isPlaying?'⏸':'▶'}
                 </button>
-                <button className={styles.ctrl} onClick={handleNext}>⏭</button>
-                <button className={`${styles.ctrl} ${repeat ? styles.ctrlActive : ''}`} onClick={() => setRepeat(v => !v)} title="Repeat">↺</button>
+                <button className={styles.pCtrl} onClick={goNext}>⏭</button>
+                <button className={`${styles.pCtrl} ${repeat?styles.pCtrlOn:''}`}
+                  style={repeat?{color:curColor}:{}} onClick={()=>setRepeat(v=>!v)}>↺</button>
               </div>
-              <div className={styles.progressRow}>
-                <span className={styles.time}>{fmt(progress)}</span>
-                <div className={styles.progressBar} onClick={seek}>
-                  <div className={styles.progressFill} style={{ width: duration ? `${(progress / duration) * 100}%` : '0%' }} />
-                  <div className={styles.progressThumb} style={{ left: duration ? `${(progress / duration) * 100}%` : '0%' }} />
+              <div className={styles.pProgress}>
+                <span className={styles.pTime}>{fmt(progress)}</span>
+                <div className={styles.pTrackBar} onClick={seek}>
+                  <div className={styles.pFill} style={{width:duration?`${(progress/duration)*100}%`:'0%',background:curColor}}/>
+                  <div className={styles.pDot} style={{left:duration?`${(progress/duration)*100}%`:'0%',background:curColor}}/>
                 </div>
-                <span className={styles.time}>{fmt(duration)}</span>
+                <span className={styles.pTime}>{fmt(duration)}</span>
               </div>
             </div>
 
-            {/* Volume */}
-            <div className={styles.playerRight}>
-              <span className={styles.volIcon}>{volume === 0 ? '🔇' : volume < 50 ? '🔉' : '🔊'}</span>
-              <input type="range" min="0" max="100" value={volume} onChange={handleVolume} className={styles.volSlider} />
+            <div className={styles.pRight}>
+              <span className={styles.pVol}>{volume===0?'🔇':volume<50?'🔉':'🔊'}</span>
+              <input type="range" min="0" max="100" value={volume} className={styles.pVolSlider}
+                style={{'--vp':`${volume}%`,'--vc':curColor}}
+                onChange={e=>{const v=+e.target.value;setVolume(v);ytRef.current?.setVolume(v);}}/>
             </div>
           </>
         ) : (
-          <div className={styles.playerEmpty}>
-            <span className={styles.playerEmptyIcon}>♫</span>
-            <span>Nothing playing — search or browse to start</span>
+          <div className={styles.pEmpty}>
+            <span className={styles.pEmptyNote}>♫</span>
+            <span>Pick a song to start listening</span>
           </div>
         )}
       </footer>
